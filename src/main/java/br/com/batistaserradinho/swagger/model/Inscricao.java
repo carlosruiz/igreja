@@ -6,7 +6,6 @@
 package br.com.batistaserradinho.swagger.model;
 
 import java.io.Serializable;
-import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -18,18 +17,15 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Carlos
+ * @author cruiz
  */
 @Entity
-@Table(catalog = "igreja", schema = "igreja")
+@Table(catalog = "igreja", schema = "igreja", name = "inscricao")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Inscricao.findAll", query = "SELECT i FROM Inscricao i")
@@ -37,37 +33,28 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Inscricao.findByNome", query = "SELECT i FROM Inscricao i WHERE i.nome = :nome")
     , @NamedQuery(name = "Inscricao.findByDocumento", query = "SELECT i FROM Inscricao i WHERE i.documento = :documento")
     , @NamedQuery(name = "Inscricao.findByTelefone", query = "SELECT i FROM Inscricao i WHERE i.telefone = :telefone")
-    , @NamedQuery(name = "Inscricao.findByPagamento", query = "SELECT i FROM Inscricao i WHERE i.pagamento = :pagamento")
-    , @NamedQuery(name = "Inscricao.findByDatadeinsercao", query = "SELECT i FROM Inscricao i WHERE i.datadeinsercao = :datadeinsercao")})
+    , @NamedQuery(name = "Inscricao.findByPagamento", query = "SELECT i FROM Inscricao i WHERE i.pagamento = :pagamento")})
 public class Inscricao implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(nullable = false)
+    @Column(name = "id")
     private Integer id;
     @Size(max = 200)
-    @Column(length = 200)
+    @Column(name = "nome")
     private String nome;
     @Size(max = 2147483647)
-    @Column(length = 2147483647)
+    @Column(name = "documento")
     private String documento;
     @Size(max = 20)
-    @Column(length = 20)
+    @Column(name = "telefone")
     private String telefone;
     @Size(max = 200)
-    @Column(length = 200)
+    @Column(name = "pagamento")
     private String pagamento;
-    @Basic(optional = false)
-    @NotNull
-    @Column(nullable = false)
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date datadeinsercao;
-    @JoinColumn(name = "especie_id", referencedColumnName = "id", nullable = false)
-    @ManyToOne(optional = false)
-    private Especie especieId;
-    @JoinColumn(name = "evento_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "evento_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Evento eventoId;
 
@@ -76,11 +63,6 @@ public class Inscricao implements Serializable {
 
     public Inscricao(Integer id) {
         this.id = id;
-    }
-
-    public Inscricao(Integer id, Date datadeinsercao) {
-        this.id = id;
-        this.datadeinsercao = datadeinsercao;
     }
 
     public Integer getId() {
@@ -121,22 +103,6 @@ public class Inscricao implements Serializable {
 
     public void setPagamento(String pagamento) {
         this.pagamento = pagamento;
-    }
-
-    public Date getDatadeinsercao() {
-        return datadeinsercao;
-    }
-
-    public void setDatadeinsercao(Date datadeinsercao) {
-        this.datadeinsercao = datadeinsercao;
-    }
-
-    public Especie getEspecieId() {
-        return especieId;
-    }
-
-    public void setEspecieId(Especie especieId) {
-        this.especieId = especieId;
     }
 
     public Evento getEventoId() {

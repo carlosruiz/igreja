@@ -32,10 +32,10 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Carlos
+ * @author cruiz
  */
 @Entity
-@Table(catalog = "igreja", schema = "igreja")
+@Table(catalog = "igreja", schema = "igreja", name = "entrada")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Entrada.findAll", query = "SELECT e FROM Entrada e")
@@ -49,29 +49,29 @@ public class Entrada implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(nullable = false)
+    @Column(name = "id")
     private Integer id;
     @Basic(optional = false)
     @NotNull
-    @Column(nullable = false)
+    @Column(name = "datadaentrada")
     @Temporal(TemporalType.TIMESTAMP)
     private Date datadaentrada;
     @Size(max = 2147483647)
-    @Column(length = 2147483647)
+    @Column(name = "observacao")
     private String observacao;
     @Basic(optional = false)
     @NotNull
-    @Column(nullable = false)
+    @Column(name = "datadeinsercao")
     @Temporal(TemporalType.TIMESTAMP)
     private Date datadeinsercao;
-    @JoinTable(name = "entradamembro", joinColumns = {
-        @JoinColumn(name = "entrada_id", referencedColumnName = "id", nullable = false)}, inverseJoinColumns = {
-        @JoinColumn(name = "membro_id", referencedColumnName = "id", nullable = false)})
+    @JoinTable(name = "entrada_membro", joinColumns = {
+        @JoinColumn(name = "entrada_id", referencedColumnName = "id")}, inverseJoinColumns = {
+        @JoinColumn(name = "membro_id", referencedColumnName = "id")})
     @ManyToMany
     private Collection<Membro> membroCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "entradaId")
     private Collection<Receita> receitaCollection;
-    @JoinColumn(name = "situacao_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "situacao_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Situacao situacaoId;
 

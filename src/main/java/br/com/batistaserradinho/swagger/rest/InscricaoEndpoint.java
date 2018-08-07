@@ -54,8 +54,8 @@ public class InscricaoEndpoint {
     @GET
     @Path("/{inscricaoId}")
     @Produces(MediaType.APPLICATION_JSON)
-    @ApiOperation(value = "Retorna a inscrição pelo Codigo", notes = "Retorna a inscrição inseridas na aplicação pelo codigo", response = InscricaoEnvelopeJson.class)
-    @ApiResponses(value = {@ApiResponse(code = 200, message = "Consulta Realizada com sucesso", response = InscricaoEnvelopeJson.class)
+    @ApiOperation(value = "Retorna a inscrição pelo Codigo", notes = "Retorna a inscrição inseridas na aplicação pelo codigo", response = Inscricao.class)
+    @ApiResponses(value = {@ApiResponse(code = 200, message = "Consulta Realizada com sucesso", response = Inscricao.class)
                           , @ApiResponse(code = 500, message = "Erro interno no servidor")})
     public Response getInscricao(@ApiParam(name = "inscricaoId", value = "Codigo da Inscrição", required = true) 
                                  @PathParam("inscricaoId") int inscricaoId) throws NoSuchMethodException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchFieldException {

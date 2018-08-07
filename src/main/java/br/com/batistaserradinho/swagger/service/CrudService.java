@@ -10,7 +10,7 @@ public class CrudService {
 
     private EntityManager entityManager;
 
-    private EntityManager getEntityManager() {
+    public EntityManager getEntityManager() {
         EntityManagerFactory factory = null;
         try {
             factory = Persistence.createEntityManagerFactory("IgrejaPU");

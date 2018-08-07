@@ -5,7 +5,6 @@
  */
 package br.com.batistaserradinho.swagger.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
@@ -26,7 +25,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -34,12 +32,10 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Carlos
+ * @author cruiz
  */
 @Entity
-@Table(catalog = "igreja", schema = "igreja", uniqueConstraints = {
-    @UniqueConstraint(columnNames = {"id"})
-    , @UniqueConstraint(columnNames = {"login"})})
+@Table(catalog = "igreja", schema = "igreja", name = "membro")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Membro.findAll", query = "SELECT m FROM Membro m")
@@ -60,9 +56,6 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Membro.findByCelular", query = "SELECT m FROM Membro m WHERE m.celular = :celular")
     , @NamedQuery(name = "Membro.findByEmail", query = "SELECT m FROM Membro m WHERE m.email = :email")
     , @NamedQuery(name = "Membro.findByDatadeentrada", query = "SELECT m FROM Membro m WHERE m.datadeentrada = :datadeentrada")
-    , @NamedQuery(name = "Membro.findByLogin", query = "SELECT m FROM Membro m WHERE m.login = :login")
-    , @NamedQuery(name = "Membro.findBySenha", query = "SELECT m FROM Membro m WHERE m.senha = :senha")
-    , @NamedQuery(name = "Membro.findByDatadoultimoacesso", query = "SELECT m FROM Membro m WHERE m.datadoultimoacesso = :datadoultimoacesso")
     , @NamedQuery(name = "Membro.findByDatadecancelamento", query = "SELECT m FROM Membro m WHERE m.datadecancelamento = :datadecancelamento")
     , @NamedQuery(name = "Membro.findByMotivocancelamento", query = "SELECT m FROM Membro m WHERE m.motivocancelamento = :motivocancelamento")})
 public class Membro implements Serializable {
@@ -71,92 +64,82 @@ public class Membro implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(nullable = false)
+    @Column(name = "id")
     private Integer id;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 50)
-    @Column(nullable = false, length = 50)
+    @Column(name = "nome")
     private String nome;
     @Size(max = 30)
-    @Column(length = 30)
+    @Column(name = "rg")
     private String rg;
     @Size(max = 14)
-    @Column(length = 14)
+    @Column(name = "cpf")
     private String cpf;
     @Size(max = 10)
-    @Column(length = 10)
+    @Column(name = "sexo")
     private String sexo;
+    @Column(name = "datadenascimento")
     @Temporal(TemporalType.DATE)
     private Date datadenascimento;
     @Size(max = 30)
-    @Column(length = 30)
+    @Column(name = "estadocivil")
     private String estadocivil;
     @Size(max = 60)
-    @Column(length = 60)
+    @Column(name = "endereco")
     private String endereco;
     @Size(max = 30)
-    @Column(length = 30)
+    @Column(name = "bairro")
     private String bairro;
     @Size(max = 9)
-    @Column(length = 9)
+    @Column(name = "cep")
     private String cep;
     @Size(max = 100)
-    @Column(length = 100)
+    @Column(name = "cidade")
     private String cidade;
     @Size(max = 2)
-    @Column(length = 2)
+    @Column(name = "uf")
     private String uf;
     @Size(max = 60)
-    @Column(length = 60)
+    @Column(name = "pais")
     private String pais;
     @Size(max = 14)
-    @Column(length = 14)
+    @Column(name = "telefone")
     private String telefone;
     @Size(max = 14)
-    @Column(length = 14)
+    @Column(name = "celular")
     private String celular;
     // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="E-mail inválido")//if the field contains email address consider using this annotation to enforce field validation
     @Size(max = 50)
-    @Column(length = 50)
+    @Column(name = "email")
     private String email;
+    @Column(name = "datadeentrada")
     @Temporal(TemporalType.DATE)
     private Date datadeentrada;
     @Lob
+    @Column(name = "foto")
     private Byte[] foto;
-    @Size(max = 20)
-    @Column(length = 20)
-    private String login;
-    @Size(max = 128)
-    @Column(length = 128)
-    private String senha;
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date datadoultimoacesso;
+    @Column(name = "datadecancelamento")
     @Temporal(TemporalType.TIMESTAMP)
     private Date datadecancelamento;
     @Size(max = 100)
-    @Column(length = 100)
+    @Column(name = "motivocancelamento")
     private String motivocancelamento;
     @ManyToMany(mappedBy = "membroCollection")
     private Collection<Entrada> entradaCollection;
     @OneToMany(mappedBy = "lider")
     private Collection<Setor> setorCollection;
-    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "membroId")
     private Collection<Despesa> despesaCollection;
-    @JsonIgnore
     @OneToMany(mappedBy = "membroId")
     private Collection<Facilitacao> facilitacaoCollection;
-    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "membroId")
     private Collection<MembroCargo> membroCargoCollection;
-    @JsonIgnore
     @OneToMany(mappedBy = "membroId")
     private Collection<Evento> eventoCollection;
-    @JsonIgnore
     @OneToMany(mappedBy = "membroId")
     private Collection<CelulaMembro> celulaMembroCollection;
-    @JsonIgnore
     @OneToMany(mappedBy = "membroId")
     private Collection<Receita> receitaCollection;
     @JoinColumn(name = "membro_formadeentrada_id", referencedColumnName = "id")
@@ -165,9 +148,11 @@ public class Membro implements Serializable {
     @JoinColumn(name = "membro_tipo_id", referencedColumnName = "id")
     @ManyToOne
     private MembroTipo membroTipoId;
-    @JoinColumn(name = "situacao_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "situacao_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Situacao situacaoId;
+    @OneToMany(mappedBy = "membroId")
+    private Collection<Usuario> usuarioCollection;
 
     public Membro() {
     }
@@ -325,30 +310,6 @@ public class Membro implements Serializable {
         this.foto = foto;
     }
 
-    public String getLogin() {
-        return login;
-    }
-
-    public void setLogin(String login) {
-        this.login = login;
-    }
-
-    public String getSenha() {
-        return senha;
-    }
-
-    public void setSenha(String senha) {
-        this.senha = senha;
-    }
-
-    public Date getDatadoultimoacesso() {
-        return datadoultimoacesso;
-    }
-
-    public void setDatadoultimoacesso(Date datadoultimoacesso) {
-        this.datadoultimoacesso = datadoultimoacesso;
-    }
-
     public Date getDatadecancelamento() {
         return datadecancelamento;
     }
@@ -459,6 +420,15 @@ public class Membro implements Serializable {
 
     public void setSituacaoId(Situacao situacaoId) {
         this.situacaoId = situacaoId;
+    }
+
+    @XmlTransient
+    public Collection<Usuario> getUsuarioCollection() {
+        return usuarioCollection;
+    }
+
+    public void setUsuarioCollection(Collection<Usuario> usuarioCollection) {
+        this.usuarioCollection = usuarioCollection;
     }
 
     @Override

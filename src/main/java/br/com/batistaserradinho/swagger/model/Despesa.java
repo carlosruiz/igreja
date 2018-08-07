@@ -26,10 +26,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Carlos
+ * @author cruiz
  */
 @Entity
-@Table(catalog = "igreja", schema = "igreja")
+@Table(catalog = "igreja", schema = "igreja", name = "despesa")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Despesa.findAll", query = "SELECT d FROM Despesa d")
@@ -45,37 +45,38 @@ public class Despesa implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(nullable = false)
+    @Column(name = "id")
     private Integer id;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 2147483647)
-    @Column(nullable = false, length = 2147483647)
+    @Column(name = "nome")
     private String nome;
     @Basic(optional = false)
     @NotNull
-    @Column(nullable = false)
+    @Column(name = "valor")
     private int valor;
     @Basic(optional = false)
     @NotNull
-    @Column(nullable = false)
+    @Column(name = "datadevencimento")
     @Temporal(TemporalType.TIMESTAMP)
     private Date datadevencimento;
+    @Column(name = "datadepagamento")
     @Temporal(TemporalType.TIMESTAMP)
     private Date datadepagamento;
     @Size(max = 256)
-    @Column(length = 256)
+    @Column(name = "observacao")
     private String observacao;
-    @JoinColumn(name = "despesa_tipo_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "despesa_tipo_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private DespesaTipo despesaTipoId;
-    @JoinColumn(name = "especie_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "especie_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Especie especieId;
-    @JoinColumn(name = "membro_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "membro_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Membro membroId;
-    @JoinColumn(name = "situacao_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "situacao_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Situacao situacaoId;
 

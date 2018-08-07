@@ -5,7 +5,6 @@
  */
 package br.com.batistaserradinho.swagger.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
@@ -28,10 +27,10 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Carlos
+ * @author cruiz
  */
 @Entity
-@Table(catalog = "igreja", schema = "igreja")
+@Table(catalog = "igreja", schema = "igreja", name = "especie")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Especie.findAll", query = "SELECT e FROM Especie e")
@@ -43,23 +42,18 @@ public class Especie implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(nullable = false)
+    @Column(name = "id")
     private Integer id;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 50)
-    @Column(nullable = false, length = 50)
+    @Column(name = "nome")
     private String nome;
-    @JsonIgnore
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "especieId")
-    private Collection<Inscricao> inscricaoCollection;
-    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "especieId")
     private Collection<Despesa> despesaCollection;
-    @JoinColumn(name = "situacao_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "situacao_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Situacao situacaoId;
-    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "especieId")
     private Collection<Receita> receitaCollection;
 
@@ -89,15 +83,6 @@ public class Especie implements Serializable {
 
     public void setNome(String nome) {
         this.nome = nome;
-    }
-
-    @XmlTransient
-    public Collection<Inscricao> getInscricaoCollection() {
-        return inscricaoCollection;
-    }
-
-    public void setInscricaoCollection(Collection<Inscricao> inscricaoCollection) {
-        this.inscricaoCollection = inscricaoCollection;
     }
 
     @XmlTransient

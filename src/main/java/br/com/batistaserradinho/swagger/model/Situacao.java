@@ -5,7 +5,6 @@
  */
 package br.com.batistaserradinho.swagger.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
@@ -26,10 +25,10 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Carlos
+ * @author cruiz
  */
 @Entity
-@Table(catalog = "igreja", schema = "igreja")
+@Table(catalog = "igreja", schema = "igreja", name = "situacao")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Situacao.findAll", query = "SELECT s FROM Situacao s")
@@ -41,47 +40,37 @@ public class Situacao implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(nullable = false)
+    @Column(name = "id")
     private Integer id;
     @Size(max = 50)
-    @Column(length = 50)
+    @Column(name = "nome")
     private String nome;
-    @JsonIgnore
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "situacao")
     private Setor setor;
-    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "situacaoId")
     private Collection<Despesa> despesaCollection;
-    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "situacaoId")
     private Collection<MembroCargo> membroCargoCollection;
-    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "situacaoId")
     private Collection<Especie> especieCollection;
-    @JsonIgnore
     @OneToMany(mappedBy = "situacaoId")
     private Collection<Celula> celulaCollection;
-    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "situacaoId")
     private Collection<Evento> eventoCollection;
-    @JsonIgnore
     @OneToMany(mappedBy = "situacaoId")
     private Collection<CelulaMembro> celulaMembroCollection;
-    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "situacaoId")
     private Collection<Cargo> cargoCollection;
-    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "situacaoId")
     private Collection<Ministerio> ministerioCollection;
-    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "situacaoId")
     private Collection<Membro> membroCollection;
-    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "situacaoId")
     private Collection<ReceitaTipo> receitaTipoCollection;
-    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "situacaoId")
     private Collection<Entrada> entradaCollection;
+    @OneToMany(mappedBy = "situacaoId")
+    private Collection<Usuario> usuarioCollection;
 
     public Situacao() {
     }
@@ -211,6 +200,15 @@ public class Situacao implements Serializable {
 
     public void setEntradaCollection(Collection<Entrada> entradaCollection) {
         this.entradaCollection = entradaCollection;
+    }
+
+    @XmlTransient
+    public Collection<Usuario> getUsuarioCollection() {
+        return usuarioCollection;
+    }
+
+    public void setUsuarioCollection(Collection<Usuario> usuarioCollection) {
+        this.usuarioCollection = usuarioCollection;
     }
 
     @Override

@@ -22,10 +22,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Carlos
+ * @author cruiz
  */
 @Entity
-@Table(catalog = "igreja", schema = "igreja")
+@Table(catalog = "igreja", schema = "igreja", name = "leituradiaria")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "LeituraDiaria.findAll", query = "SELECT l FROM LeituraDiaria l")
@@ -38,16 +38,16 @@ public class LeituraDiaria implements Serializable {
     @Id
     @Basic(optional = false)
     @NotNull
-    @Column(nullable = false)
+    @Column(name = "data")
     @Temporal(TemporalType.DATE)
     private Date data;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 50)
-    @Column(nullable = false, length = 50)
+    @Column(name = "referencia")
     private String referencia;
     @Size(max = 500)
-    @Column(length = 500)
+    @Column(name = "versiculo")
     private String versiculo;
 
     public LeituraDiaria() {

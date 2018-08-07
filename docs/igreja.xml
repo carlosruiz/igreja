@@ -1,0 +1,1469 @@
+<?xml version="1.0" encoding="UTF-8"?><Db flnm="igreja" nm="igreja" ver="1.3.4">
+  <VerLbl/>
+  <VerNotes/>
+  <DefTblOpts/>
+  <DocFolder>D:\Meus Documentos\Downloads\Projeto Igreja</DocFolder>
+  <Sch Cm="" nm="igreja">
+    <Tbl UsSo="1" nm="acesso">
+      <TblOpts>WITHOUT OIDS</TblOpts>
+      <Pk ClNs="id" nm="pkacesso"/>
+      <Cl au="0" df="" nm="id" nu="0">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="cargo_id" nu="0">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="token" nu="0">
+        <DT arr="0" ds="VarChar" en="" id="12" ln="100" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="descricao" nu="1">
+        <DT arr="0" ds="VarChar" en="" id="12" ln="100" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Fk deAc="3" nm="fk_Acesso_cargo" prLkCl="id" upAc="3">
+        <PrTb mn="0" nm="cargo" oe="1" sch="igreja" zr="0"/>
+        <CdTb mn="1" nm="acesso" oe="0" sch="igreja" zr="1"/>
+        <ClPr cdCl="cargo_id" prCl="id"/>
+      </Fk>
+      <UniqueConstraints/>
+      <SchTrHis/>
+    </Tbl>
+    <Tbl UsSo="1" nm="cargo">
+      <TblOpts>WITHOUT OIDS</TblOpts>
+      <Pk ClNs="id" nm="pkcargo"/>
+      <Cl au="1" df="nextval('igreja.cargo_id_seq'::regclass)" nm="id" nu="0">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="ministerio_id" nu="0">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="nome" nu="0">
+        <DT arr="0" ds="VarChar" en="" id="12" ln="60" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="situacao_id" nu="0">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Fk deAc="3" nm="fk_cargo_ministerio" prLkCl="id" upAc="3">
+        <PrTb mn="0" nm="ministerio" oe="1" sch="igreja" zr="0"/>
+        <CdTb mn="1" nm="cargo" oe="0" sch="igreja" zr="1"/>
+        <ClPr cdCl="ministerio_id" prCl="id"/>
+      </Fk>
+      <Fk deAc="3" nm="fk_cargo_situacao" prLkCl="id" upAc="3">
+        <PrTb mn="0" nm="situacao" oe="1" sch="igreja" zr="0"/>
+        <CdTb mn="1" nm="cargo" oe="0" sch="igreja" zr="1"/>
+        <ClPr cdCl="situacao_id" prCl="id"/>
+      </Fk>
+      <UniqueConstraints/>
+      <SchTrHis/>
+    </Tbl>
+    <Tbl UsSo="1" nm="celula">
+      <TblOpts>WITHOUT OIDS</TblOpts>
+      <Pk ClNs="id" nm="pkcelula"/>
+      <Cl au="0" df="" nm="id" nu="0">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="nome" nu="0">
+        <DT arr="0" ds="VarChar" en="" id="12" ln="100" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="endereco" nu="1">
+        <DT arr="0" ds="VarChar" en="" id="12" ln="256" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="situacao_id" nu="1">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="diadereuniao" nu="1">
+        <DT arr="0" ds="VarChar" en="" id="12" ln="100" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="horadereuniao" nu="1">
+        <DT arr="0" ds="Time" en="" id="92" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="setor_id" nu="1">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Fk deAc="3" nm="fk_celula_setor" prLkCl="id" upAc="3">
+        <PrTb mn="0" nm="setor" oe="1" sch="igreja" zr="1"/>
+        <CdTb mn="1" nm="celula" oe="0" sch="igreja" zr="1"/>
+        <ClPr cdCl="setor_id" prCl="id"/>
+      </Fk>
+      <Fk deAc="3" nm="fk_celula_situacao" prLkCl="id" upAc="3">
+        <PrTb mn="0" nm="situacao" oe="1" sch="igreja" zr="1"/>
+        <CdTb mn="1" nm="celula" oe="0" sch="igreja" zr="1"/>
+        <ClPr cdCl="situacao_id" prCl="id"/>
+      </Fk>
+      <UniqueConstraints/>
+      <SchTrHis/>
+    </Tbl>
+    <Tbl UsSo="1" nm="celula_membro">
+      <TblOpts>WITHOUT OIDS</TblOpts>
+      <Pk ClNs="id" nm="pkcelula_membro"/>
+      <Cl au="1" df="nextval('igreja.&quot;membroCelula_id_seq&quot;'::regclass)" nm="id" nu="0">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="membro_id" nu="1">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="situacao_id" nu="1">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="ehlider" nu="1">
+        <DT arr="0" ds="Boolean" en="" id="16" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="ehLiderEmTreinamento" nu="1">
+        <DT arr="0" ds="Boolean" en="" id="16" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="celula_id" nu="1">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Fk deAc="3" nm="fk_membroCelula_celula" prLkCl="id" upAc="3">
+        <PrTb mn="0" nm="celula" oe="1" sch="igreja" zr="1"/>
+        <CdTb mn="1" nm="celula_membro" oe="0" sch="igreja" zr="1"/>
+        <ClPr cdCl="celula_id" prCl="id"/>
+      </Fk>
+      <Fk deAc="3" nm="fk_membroCelula_membro" prLkCl="id" upAc="3">
+        <PrTb mn="0" nm="membro" oe="1" sch="igreja" zr="1"/>
+        <CdTb mn="1" nm="celula_membro" oe="0" sch="igreja" zr="1"/>
+        <ClPr cdCl="membro_id" prCl="id"/>
+      </Fk>
+      <Fk deAc="3" nm="fk_membroCelula_situacao" prLkCl="id" upAc="3">
+        <PrTb mn="0" nm="situacao" oe="1" sch="igreja" zr="1"/>
+        <CdTb mn="1" nm="celula_membro" oe="0" sch="igreja" zr="1"/>
+        <ClPr cdCl="situacao_id" prCl="id"/>
+      </Fk>
+      <UniqueConstraints/>
+      <SchTrHis/>
+    </Tbl>
+    <Tbl UsSo="1" nm="celula_relatorio">
+      <TblOpts>WITHOUT OIDS</TblOpts>
+      <Pk ClNs="id" nm="pkcelula_relatorio"/>
+      <Cl au="1" df="nextval('igreja.&quot;relatorioCelula_id_seq&quot;'::regclass)" nm="id" nu="0">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="celula_id" nu="0">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="discipulador" nu="1">
+        <DT arr="0" ds="VarChar" en="" id="12" ln="100" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="datadereuniao" nu="1">
+        <DT arr="0" ds="TimeStamp" en="" id="93" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="valordaoferta" nu="1">
+        <DT arr="0" ds="Numeric" en="" id="2" ln="10" sc="2" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="totadepresentes" nu="1">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="totaldemembrospresentes" nu="1">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="totaldefrequentadoresassiduos" nu="1">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="totaldevisitantes" nu="1">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="totaldecriancas" nu="1">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="quantidadedevisitas" nu="1">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Fk deAc="3" nm="fk_relatorioCelula_celula" prLkCl="id" upAc="3">
+        <PrTb mn="0" nm="celula" oe="1" sch="igreja" zr="0"/>
+        <CdTb mn="1" nm="celula_relatorio" oe="0" sch="igreja" zr="1"/>
+        <ClPr cdCl="celula_id" prCl="id"/>
+      </Fk>
+      <UniqueConstraints/>
+      <SchTrHis/>
+    </Tbl>
+    <Tbl UsSo="1" nm="despesa">
+      <TblOpts>WITHOUT OIDS</TblOpts>
+      <Pk ClNs="id" nm="pkdespesa"/>
+      <Cl au="1" df="nextval('igreja.&quot;despesa_id_seq&quot;'::regclass)" nm="id" nu="0">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="nome" nu="0">
+        <DT arr="0" ds="VarChar" en="" id="12" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="especie_id" nu="0">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="despesa_tipo_id" nu="0">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="valor" nu="0">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="datadevencimento" nu="0">
+        <DT arr="0" ds="TimeStamp" en="" id="93" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="datadepagamento" nu="1">
+        <DT arr="0" ds="TimeStamp" en="" id="93" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="situacao_id" nu="0">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="observacao" nu="1">
+        <DT arr="0" ds="VarChar" en="" id="12" ln="256" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="membro_id" nu="0">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Fk deAc="3" nm="fk_despesa_especie" prLkCl="id" upAc="3">
+        <PrTb mn="0" nm="especie" oe="1" sch="igreja" zr="0"/>
+        <CdTb mn="1" nm="despesa" oe="0" sch="igreja" zr="1"/>
+        <ClPr cdCl="especie_id" prCl="id"/>
+      </Fk>
+      <Fk deAc="3" nm="fk_despesa_membro" prLkCl="id" upAc="3">
+        <PrTb mn="0" nm="membro" oe="1" sch="igreja" zr="0"/>
+        <CdTb mn="1" nm="despesa" oe="0" sch="igreja" zr="1"/>
+        <ClPr cdCl="membro_id" prCl="id"/>
+      </Fk>
+      <Fk deAc="3" nm="fk_despesa_situacao" prLkCl="id" upAc="3">
+        <PrTb mn="0" nm="situacao" oe="1" sch="igreja" zr="0"/>
+        <CdTb mn="1" nm="despesa" oe="0" sch="igreja" zr="1"/>
+        <ClPr cdCl="situacao_id" prCl="id"/>
+      </Fk>
+      <Fk deAc="3" nm="fk_despesa_tipoDeDespesa" prLkCl="id" upAc="3">
+        <PrTb mn="0" nm="despesa_tipo" oe="1" sch="igreja" zr="0"/>
+        <CdTb mn="1" nm="despesa" oe="0" sch="igreja" zr="1"/>
+        <ClPr cdCl="despesa_tipo_id" prCl="id"/>
+      </Fk>
+      <UniqueConstraints/>
+      <SchTrHis/>
+    </Tbl>
+    <Tbl UsSo="1" nm="despesa_tipo">
+      <TblOpts>WITHOUT OIDS</TblOpts>
+      <Pk ClNs="id" nm="pkdespesa_tipo"/>
+      <Cl au="1" df="nextval('igreja.&quot;tipoDeDespesa_id_seq&quot;'::regclass)" nm="id" nu="0">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="nome" nu="1">
+        <DT arr="0" ds="VarChar" en="" id="12" ln="100" sc="null" sg="1" un="0"/>
+      </Cl>
+      <UniqueConstraints/>
+      <SchTrHis/>
+    </Tbl>
+    <Tbl UsSo="1" nm="entrada">
+      <TblOpts>WITHOUT OIDS</TblOpts>
+      <Pk ClNs="id" nm="pkentrada"/>
+      <Cl au="1" df="nextval('igreja.entrada_id_seq'::regclass)" nm="id" nu="0">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="datadaentrada" nu="0">
+        <DT arr="0" ds="TimeStamp" en="" id="93" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="observacao" nu="1">
+        <DT arr="0" ds="Text" en="" id="703" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="situacao_id" nu="0">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="datadeinsercao" nu="0">
+        <DT arr="0" ds="TimeStamp" en="" id="93" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Fk deAc="3" nm="fk_entrada_situacao" prLkCl="id" upAc="3">
+        <PrTb mn="0" nm="situacao" oe="1" sch="igreja" zr="0"/>
+        <CdTb mn="1" nm="entrada" oe="0" sch="igreja" zr="1"/>
+        <ClPr cdCl="situacao_id" prCl="id"/>
+      </Fk>
+      <UniqueConstraints/>
+      <SchTrHis/>
+    </Tbl>
+    <Tbl UsSo="1" nm="entrada_membro">
+      <TblOpts>WITHOUT OIDS</TblOpts>
+      <Pk ClNs="entrada_id, membro_id" nm="pkentrada_membro"/>
+      <Cl au="0" df="" nm="entrada_id" nu="0">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="membro_id" nu="0">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Fk deAc="3" nm="fk_entradaMembro_entrada" prLkCl="id" upAc="3">
+        <PrTb mn="0" nm="entrada" oe="1" sch="igreja" zr="0"/>
+        <CdTb mn="1" nm="entrada_membro" oe="0" sch="igreja" zr="1"/>
+        <ClPr cdCl="entrada_id" prCl="id"/>
+      </Fk>
+      <Fk deAc="3" nm="fk_entradaMembro_membro" prLkCl="id" upAc="3">
+        <PrTb mn="0" nm="membro" oe="1" sch="igreja" zr="0"/>
+        <CdTb mn="1" nm="entrada_membro" oe="0" sch="igreja" zr="1"/>
+        <ClPr cdCl="membro_id" prCl="id"/>
+      </Fk>
+      <UniqueConstraints/>
+      <SchTrHis/>
+    </Tbl>
+    <Tbl UsSo="1" nm="especie">
+      <TblOpts>WITHOUT OIDS</TblOpts>
+      <Pk ClNs="id" nm="pkespecie"/>
+      <Cl au="1" df="nextval('igreja.especie_id_seq'::regclass)" nm="id" nu="0">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="nome" nu="0">
+        <DT arr="0" ds="VarChar" en="" id="12" ln="50" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="situacao_id" nu="0">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Fk deAc="3" nm="fk_especie_situacao" prLkCl="id" upAc="3">
+        <PrTb mn="0" nm="situacao" oe="1" sch="igreja" zr="0"/>
+        <CdTb mn="1" nm="especie" oe="0" sch="igreja" zr="1"/>
+        <ClPr cdCl="situacao_id" prCl="id"/>
+      </Fk>
+      <UniqueConstraints/>
+      <SchTrHis/>
+    </Tbl>
+    <Tbl UsSo="1" nm="evento">
+      <TblOpts>WITHOUT OIDS</TblOpts>
+      <Pk ClNs="id" nm="pkevento"/>
+      <Cl au="1" df="nextval('igreja.evento_id_seq'::regclass)" nm="id" nu="0">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="nome" nu="1">
+        <DT arr="0" ds="VarChar" en="" id="12" ln="100" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="datadeinicio" nu="1">
+        <DT arr="0" ds="TimeStamp" en="" id="93" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="datadetermino" nu="1">
+        <DT arr="0" ds="TimeStamp" en="" id="93" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="descricao" nu="1">
+        <DT arr="0" ds="VarChar" en="" id="12" ln="256" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="situacao_id" nu="0">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="membro_id" nu="1">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Fk deAc="3" nm="fk_evento_membro" prLkCl="id" upAc="3">
+        <PrTb mn="0" nm="membro" oe="1" sch="igreja" zr="1"/>
+        <CdTb mn="1" nm="evento" oe="0" sch="igreja" zr="1"/>
+        <ClPr cdCl="membro_id" prCl="id"/>
+      </Fk>
+      <Fk deAc="3" nm="fk_evento_situacao" prLkCl="id" upAc="3">
+        <PrTb mn="0" nm="situacao" oe="1" sch="igreja" zr="0"/>
+        <CdTb mn="1" nm="evento" oe="0" sch="igreja" zr="1"/>
+        <ClPr cdCl="situacao_id" prCl="id"/>
+      </Fk>
+      <UniqueConstraints/>
+      <SchTrHis/>
+    </Tbl>
+    <Tbl UsSo="1" nm="facilitacao">
+      <TblOpts>WITHOUT OIDS</TblOpts>
+      <Pk ClNs="id" nm="pkfacilitacao"/>
+      <Cl au="1" df="nextval('igreja.&quot;facilitacao_id_seq&quot;'::regclass)" nm="id" nu="0">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="titulo" nu="0">
+        <DT arr="0" ds="VarChar" en="" id="12" ln="80" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="datadereferencia" nu="0">
+        <DT arr="0" ds="TimeStamp" en="" id="93" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="membro_id" nu="1">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="documentoempdf" nu="1">
+        <DT arr="0" ds="Binary" en="" id="-2" ln="1" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Fk deAc="3" nm="fk_facilitacao_membro" prLkCl="id" upAc="3">
+        <PrTb mn="0" nm="membro" oe="1" sch="igreja" zr="1"/>
+        <CdTb mn="1" nm="facilitacao" oe="0" sch="igreja" zr="1"/>
+        <ClPr cdCl="membro_id" prCl="id"/>
+      </Fk>
+      <UniqueConstraints/>
+      <SchTrHis/>
+    </Tbl>
+    <Tbl UsSo="1" nm="inscricao">
+      <TblOpts>WITHOUT OIDS</TblOpts>
+      <Pk ClNs="id" nm="pkinscricao"/>
+      <Cl au="1" df="nextval('igreja.&quot;Inscricao_id_seq&quot;'::regclass)" nm="id" nu="0">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="nome" nu="1">
+        <DT arr="0" ds="VarChar" en="" id="12" ln="200" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="documento" nu="1">
+        <DT arr="0" ds="VarChar" en="" id="12" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="evento_id" nu="0">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="telefone" nu="1">
+        <DT arr="0" ds="VarChar" en="" id="12" ln="20" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="pagamento" nu="1">
+        <DT arr="0" ds="VarChar" en="" id="12" ln="200" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Fk deAc="3" nm="fk_Inscricao_evento" prLkCl="id" upAc="3">
+        <PrTb mn="0" nm="evento" oe="1" sch="igreja" zr="0"/>
+        <CdTb mn="1" nm="inscricao" oe="0" sch="igreja" zr="1"/>
+        <ClPr cdCl="evento_id" prCl="id"/>
+      </Fk>
+      <UniqueConstraints/>
+      <SchTrHis/>
+    </Tbl>
+    <Tbl UsSo="1" nm="leituradiaria">
+      <TblOpts>WITHOUT OIDS</TblOpts>
+      <Pk ClNs="data" nm="pkleituradiaria"/>
+      <Cl au="0" df="" nm="data" nu="0">
+        <DT arr="0" ds="Date" en="" id="91" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="referencia" nu="0">
+        <DT arr="0" ds="VarChar" en="" id="12" ln="50" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="versiculo" nu="1">
+        <DT arr="0" ds="VarChar" en="" id="12" ln="500" sc="null" sg="1" un="0"/>
+      </Cl>
+      <UniqueConstraints/>
+      <SchTrHis/>
+    </Tbl>
+    <Tbl UsSo="1" nm="membro">
+      <TblOpts>WITHOUT OIDS</TblOpts>
+      <Pk ClNs="id" nm="pkmembro"/>
+      <Cl au="1" df="nextval('igreja.membro_id_seq'::regclass)" nm="id" nu="0">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="nome" nu="0">
+        <DT arr="0" ds="VarChar" en="" id="12" ln="50" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="rg" nu="1">
+        <DT arr="0" ds="VarChar" en="" id="12" ln="30" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="cpf" nu="1">
+        <DT arr="0" ds="VarChar" en="" id="12" ln="14" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="sexo" nu="1">
+        <DT arr="0" ds="VarChar" en="" id="12" ln="10" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="datadenascimento" nu="1">
+        <DT arr="0" ds="Date" en="" id="91" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="estadocivil" nu="1">
+        <DT arr="0" ds="VarChar" en="" id="12" ln="30" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="endereco" nu="1">
+        <DT arr="0" ds="VarChar" en="" id="12" ln="60" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="bairro" nu="1">
+        <DT arr="0" ds="VarChar" en="" id="12" ln="30" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="cep" nu="1">
+        <DT arr="0" ds="VarChar" en="" id="12" ln="9" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="cidade" nu="1">
+        <DT arr="0" ds="VarChar" en="" id="12" ln="100" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="uf" nu="1">
+        <DT arr="0" ds="VarChar" en="" id="12" ln="2" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="pais" nu="1">
+        <DT arr="0" ds="VarChar" en="" id="12" ln="60" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="telefone" nu="1">
+        <DT arr="0" ds="VarChar" en="" id="12" ln="14" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="celular" nu="1">
+        <DT arr="0" ds="VarChar" en="" id="12" ln="14" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="email" nu="1">
+        <DT arr="0" ds="VarChar" en="" id="12" ln="50" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="membro_tipo_id" nu="1">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="membro_formadeentrada_id" nu="1">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="0" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="datadeentrada" nu="1">
+        <DT arr="0" ds="Date" en="" id="91" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="situacao_id" nu="0">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="foto" nu="1">
+        <DT arr="0" ds="Binary" en="" id="-2" ln="1" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="datadecancelamento" nu="1">
+        <DT arr="0" ds="TimeStamp" en="" id="93" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="motivocancelamento" nu="1">
+        <DT arr="0" ds="VarChar" en="" id="12" ln="100" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Fk deAc="3" nm="fk_membro_entrada_membro" prLkCl="id" upAc="3">
+        <PrTb mn="0" nm="membro_formadeentrada" oe="1" sch="igreja" zr="1"/>
+        <CdTb mn="1" nm="membro" oe="0" sch="igreja" zr="1"/>
+        <ClPr cdCl="membro_formadeentrada_id" prCl="id"/>
+      </Fk>
+      <Fk deAc="3" nm="fk_membro_situacao" prLkCl="id" upAc="3">
+        <PrTb mn="0" nm="situacao" oe="1" sch="igreja" zr="0"/>
+        <CdTb mn="1" nm="membro" oe="0" sch="igreja" zr="1"/>
+        <ClPr cdCl="situacao_id" prCl="id"/>
+      </Fk>
+      <Fk deAc="3" nm="fk_membro_tipo_membro" prLkCl="id" upAc="3">
+        <PrTb mn="0" nm="membro_tipo" oe="1" sch="igreja" zr="1"/>
+        <CdTb mn="1" nm="membro" oe="0" sch="igreja" zr="1"/>
+        <ClPr cdCl="membro_tipo_id" prCl="id"/>
+      </Fk>
+      <Idx clu="0" ftx="0" nm="membro_datanascimento_idx" spa="0" unq="0">
+        <ClNs>datadenascimento</ClNs>
+        <OptTx>USING btree</OptTx>
+      </Idx>
+      <Idx clu="0" ftx="0" nm="membro_nome_idx" spa="0" unq="0">
+        <ClNs>nome</ClNs>
+        <OptTx>USING btree</OptTx>
+      </Idx>
+      <UniqueConstraints>
+        <UnCon nm="membro_codmembro_key">
+          <ClNs>id</ClNs>
+        </UnCon>
+        <UnCon nm="uc_codmembro">
+          <ClNs>id</ClNs>
+        </UnCon>
+      </UniqueConstraints>
+      <SchTrHis/>
+    </Tbl>
+    <Tbl UsSo="1" nm="membro_cargo">
+      <TblOpts>WITHOUT OIDS</TblOpts>
+      <Pk ClNs="id" nm="pkmembro_cargo"/>
+      <Cl au="0" df="" nm="id" nu="0">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="membro_id" nu="0">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="cargo_id" nu="0">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="situacao_id" nu="0">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="datadeentrada" nu="0">
+        <DT arr="0" ds="Date" en="" id="91" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="datadesaida" nu="1">
+        <DT arr="0" ds="Date" en="" id="91" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Fk deAc="3" nm="fk_membroCargo_cargo" prLkCl="id" upAc="3">
+        <PrTb mn="0" nm="cargo" oe="1" sch="igreja" zr="0"/>
+        <CdTb mn="1" nm="membro_cargo" oe="0" sch="igreja" zr="1"/>
+        <ClPr cdCl="cargo_id" prCl="id"/>
+      </Fk>
+      <Fk deAc="3" nm="fk_membroCargo_membro" prLkCl="id" upAc="3">
+        <PrTb mn="0" nm="membro" oe="1" sch="igreja" zr="0"/>
+        <CdTb mn="1" nm="membro_cargo" oe="0" sch="igreja" zr="1"/>
+        <ClPr cdCl="membro_id" prCl="id"/>
+      </Fk>
+      <Fk deAc="3" nm="fk_membroCargo_situacao" prLkCl="id" upAc="3">
+        <PrTb mn="0" nm="situacao" oe="1" sch="igreja" zr="0"/>
+        <CdTb mn="1" nm="membro_cargo" oe="0" sch="igreja" zr="1"/>
+        <ClPr cdCl="situacao_id" prCl="id"/>
+      </Fk>
+      <UniqueConstraints/>
+      <SchTrHis/>
+    </Tbl>
+    <Tbl UsSo="1" nm="membro_formadeentrada">
+      <TblOpts>WITHOUT OIDS</TblOpts>
+      <Pk ClNs="id" nm="pkmembro_formadeentrada"/>
+      <Cl au="1" df="nextval('igreja.&quot;formaDeEntrada_id_seq&quot;'::regclass)" nm="id" nu="0">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="descricao" nu="0">
+        <DT arr="0" ds="VarChar" en="" id="12" ln="30" sc="null" sg="1" un="0"/>
+      </Cl>
+      <UniqueConstraints/>
+      <SchTrHis/>
+    </Tbl>
+    <Tbl UsSo="1" nm="membro_tipo">
+      <TblOpts>WITHOUT OIDS</TblOpts>
+      <Pk ClNs="id" nm="pkmembro_tipo"/>
+      <Cl au="1" df="nextval('igreja.&quot;tipoDeMembro_id_seq&quot;'::regclass)" nm="id" nu="0">
+        <DT arr="0" ds="BigInt" en="" id="-5" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="descricao" nu="0">
+        <DT arr="0" ds="VarChar" en="" id="12" ln="30" sc="null" sg="1" un="0"/>
+      </Cl>
+      <UniqueConstraints>
+        <UnCon nm="uc_tipomembro">
+          <ClNs>descricao</ClNs>
+        </UnCon>
+      </UniqueConstraints>
+      <SchTrHis/>
+    </Tbl>
+    <Tbl UsSo="1" nm="ministerio">
+      <TblOpts>WITHOUT OIDS</TblOpts>
+      <Pk ClNs="id" nm="pkministerio"/>
+      <Cl au="1" df="nextval('igreja.ministerio_id_seq'::regclass)" nm="id" nu="0">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="nome" nu="0">
+        <DT arr="0" ds="VarChar" en="" id="12" ln="50" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="situacao_id" nu="0">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Fk deAc="3" nm="fk_ministerio_situacao" prLkCl="id" upAc="3">
+        <PrTb mn="0" nm="situacao" oe="1" sch="igreja" zr="0"/>
+        <CdTb mn="1" nm="ministerio" oe="0" sch="igreja" zr="1"/>
+        <ClPr cdCl="situacao_id" prCl="id"/>
+      </Fk>
+      <UniqueConstraints>
+        <UnCon nm="uc_ministerio">
+          <ClNs>nome</ClNs>
+        </UnCon>
+      </UniqueConstraints>
+      <SchTrHis/>
+    </Tbl>
+    <Tbl UsSo="1" nm="prestacaodeconta">
+      <TblOpts>WITHOUT OIDS</TblOpts>
+      <Pk ClNs="id" nm="pkprestacaodeconta"/>
+      <Cl au="1" df="nextval('igreja.&quot;prestacaoDeConta_id_seq&quot;'::regclass)" nm="id" nu="0">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="relatoriocelula_id" nu="1">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="membrocelula_id" nu="1">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="motivodafalta" nu="1">
+        <DT arr="0" ds="VarChar" en="" id="12" ln="256" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Fk deAc="3" nm="fk_prestacaoDeConta_membroCelula" prLkCl="id" upAc="3">
+        <PrTb mn="0" nm="celula_membro" oe="1" sch="igreja" zr="1"/>
+        <CdTb mn="1" nm="prestacaodeconta" oe="0" sch="igreja" zr="1"/>
+        <ClPr cdCl="membrocelula_id" prCl="id"/>
+      </Fk>
+      <Fk deAc="3" nm="fk_prestacaoDeConta_relatorioCelula" prLkCl="id" upAc="3">
+        <PrTb mn="0" nm="celula_relatorio" oe="1" sch="igreja" zr="1"/>
+        <CdTb mn="1" nm="prestacaodeconta" oe="0" sch="igreja" zr="1"/>
+        <ClPr cdCl="relatoriocelula_id" prCl="id"/>
+      </Fk>
+      <UniqueConstraints/>
+      <SchTrHis/>
+    </Tbl>
+    <Tbl UsSo="1" nm="receita">
+      <TblOpts>WITHOUT OIDS</TblOpts>
+      <Pk ClNs="id" nm="pkreceita"/>
+      <Cl au="1" df="nextval('igreja.receita_id_seq'::regclass)" nm="id" nu="0">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="entrada_id" nu="0">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="nome" nu="1">
+        <DT arr="0" ds="VarChar" en="" id="12" ln="100" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="membro_id" nu="1">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="especie_id" nu="0">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="observacao" nu="1">
+        <DT arr="0" ds="Text" en="" id="703" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="imagem" nu="1">
+        <DT arr="0" ds="VarChar" en="" id="12" ln="100" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="valortotal" nu="0">
+        <DT arr="0" ds="Numeric" en="" id="2" ln="10" sc="2" sg="1" un="0"/>
+      </Cl>
+      <Fk deAc="3" nm="fk_itemreceita_especie" prLkCl="id" upAc="3">
+        <PrTb mn="0" nm="especie" oe="1" sch="igreja" zr="0"/>
+        <CdTb mn="1" nm="receita" oe="0" sch="igreja" zr="1"/>
+        <ClPr cdCl="especie_id" prCl="id"/>
+      </Fk>
+      <Fk deAc="3" nm="fk_receita_entrada" prLkCl="id" upAc="3">
+        <PrTb mn="0" nm="entrada" oe="1" sch="igreja" zr="0"/>
+        <CdTb mn="1" nm="receita" oe="0" sch="igreja" zr="1"/>
+        <ClPr cdCl="entrada_id" prCl="id"/>
+      </Fk>
+      <Fk deAc="3" nm="fk_receita_membro" prLkCl="id" upAc="3">
+        <PrTb mn="0" nm="membro" oe="1" sch="igreja" zr="1"/>
+        <CdTb mn="1" nm="receita" oe="0" sch="igreja" zr="1"/>
+        <ClPr cdCl="membro_id" prCl="id"/>
+      </Fk>
+      <UniqueConstraints/>
+      <SchTrHis/>
+    </Tbl>
+    <Tbl UsSo="1" nm="receita_item">
+      <TblOpts>WITHOUT OIDS</TblOpts>
+      <Pk ClNs="id" nm="pkreceita_item"/>
+      <Cl au="1" df="nextval('igreja.&quot;itemDaReceita_id_seq&quot;'::regclass)" nm="id" nu="0">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="receita_id" nu="0">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="receita_tipo_id" nu="0">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="valor" nu="0">
+        <DT arr="0" ds="Numeric" en="" id="2" ln="10" sc="2" sg="1" un="0"/>
+      </Cl>
+      <Fk deAc="3" nm="fk_itemreceita_receita" prLkCl="id" upAc="3">
+        <PrTb mn="0" nm="receita" oe="1" sch="igreja" zr="0"/>
+        <CdTb mn="1" nm="receita_item" oe="0" sch="igreja" zr="1"/>
+        <ClPr cdCl="receita_id" prCl="id"/>
+      </Fk>
+      <Fk deAc="3" nm="fk_itemreceita_tiporeceita" prLkCl="id" upAc="3">
+        <PrTb mn="0" nm="receita_tipo" oe="1" sch="igreja" zr="0"/>
+        <CdTb mn="1" nm="receita_item" oe="0" sch="igreja" zr="1"/>
+        <ClPr cdCl="receita_tipo_id" prCl="id"/>
+      </Fk>
+      <UniqueConstraints/>
+      <SchTrHis/>
+    </Tbl>
+    <Tbl UsSo="1" nm="receita_tipo">
+      <TblOpts>WITHOUT OIDS</TblOpts>
+      <Pk ClNs="id" nm="pkreceita_tipo"/>
+      <Cl au="0" df="" nm="id" nu="0">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="nome" nu="0">
+        <DT arr="0" ds="VarChar" en="" id="12" ln="50" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="situacao_id" nu="0">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Fk deAc="3" nm="fk_tiporeceita_situacao" prLkCl="id" upAc="3">
+        <PrTb mn="0" nm="situacao" oe="1" sch="igreja" zr="0"/>
+        <CdTb mn="1" nm="receita_tipo" oe="0" sch="igreja" zr="1"/>
+        <ClPr cdCl="situacao_id" prCl="id"/>
+      </Fk>
+      <UniqueConstraints/>
+      <SchTrHis/>
+    </Tbl>
+    <Tbl UsSo="1" nm="relatodavisita">
+      <TblOpts>WITHOUT OIDS</TblOpts>
+      <Pk ClNs="id" nm="pkrelatodavisita"/>
+      <Cl au="1" df="nextval('igreja.&quot;relatoDaVisita_id_seq&quot;'::regclass)" nm="id" nu="0">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="relatoriocelula_id" nu="0">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="descricao" nu="1">
+        <DT arr="0" ds="Text" en="" id="703" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Fk deAc="3" nm="fk_relatoDaVisita_relatorioCelula" prLkCl="id" upAc="3">
+        <PrTb mn="0" nm="celula_relatorio" oe="1" sch="igreja" zr="0"/>
+        <CdTb mn="1" nm="relatodavisita" oe="0" sch="igreja" zr="1"/>
+        <ClPr cdCl="relatoriocelula_id" prCl="id"/>
+      </Fk>
+      <UniqueConstraints/>
+      <SchTrHis/>
+    </Tbl>
+    <Tbl UsSo="1" nm="relatorio_criancaspresentes">
+      <TblOpts>WITHOUT OIDS</TblOpts>
+      <Pk ClNs="id" nm="pkrelatorio_criancaspresentes"/>
+      <Cl au="0" df="" nm="id" nu="0">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="nome" nu="1">
+        <DT arr="0" ds="VarChar" en="" id="12" ln="100" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="celula_relatorio_id" nu="0">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Fk deAc="3" nm="fk_criancasPresentes_relatorioCelula" prLkCl="id" upAc="3">
+        <PrTb mn="0" nm="celula_relatorio" oe="1" sch="igreja" zr="0"/>
+        <CdTb mn="1" nm="relatorio_criancaspresentes" oe="0" sch="igreja" zr="1"/>
+        <ClPr cdCl="celula_relatorio_id" prCl="id"/>
+      </Fk>
+      <UniqueConstraints/>
+      <SchTrHis/>
+    </Tbl>
+    <Tbl UsSo="1" nm="setor">
+      <TblOpts>WITHOUT OIDS</TblOpts>
+      <Pk ClNs="id" nm="pksetor"/>
+      <Cl au="1" df="nextval('igreja.setor_id_seq'::regclass)" nm="id" nu="0">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="nome" nu="1">
+        <DT arr="0" ds="VarChar" en="" id="12" ln="100" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="situacao_id" nu="1">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="lider" nu="1">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Fk deAc="3" nm="fk_setor_membro" prLkCl="id" upAc="3">
+        <PrTb mn="0" nm="membro" oe="1" sch="igreja" zr="1"/>
+        <CdTb mn="1" nm="setor" oe="0" sch="igreja" zr="1"/>
+        <ClPr cdCl="lider" prCl="id"/>
+      </Fk>
+      <Fk deAc="3" nm="fk_setor_situacao" prLkCl="id" upAc="3">
+        <PrTb mn="0" nm="situacao" oe="1" sch="igreja" zr="0"/>
+        <CdTb mn="1" nm="setor" oe="0" sch="igreja" zr="1"/>
+        <ClPr cdCl="id" prCl="id"/>
+      </Fk>
+      <UniqueConstraints/>
+      <SchTrHis/>
+    </Tbl>
+    <Tbl UsSo="1" nm="situacao">
+      <TblOpts>WITHOUT OIDS</TblOpts>
+      <Pk ClNs="id" nm="pksituacao"/>
+      <Cl au="1" df="nextval('igreja.situacao_id_seq'::regclass)" nm="id" nu="0">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="nome" nu="1">
+        <DT arr="0" ds="VarChar" en="" id="12" ln="50" sc="null" sg="1" un="0"/>
+      </Cl>
+      <UniqueConstraints/>
+      <SchTrHis/>
+    </Tbl>
+    <Tbl UsSo="1" nm="usuario">
+      <TblOpts>WITHOUT OIDS</TblOpts>
+      <Pk ClNs="id" nm="pkusuario"/>
+      <Cl au="0" df="" nm="id" nu="0">
+        <DT arr="0" ds="VarChar" en="" id="12" ln="20" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="membro_id" nu="1">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="senha" nu="0">
+        <DT arr="0" ds="VarChar" en="" id="12" ln="100" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="datadeultimoacesso" nu="1">
+        <DT arr="0" ds="TimeStamp" en="" id="93" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="situacao_id" nu="1">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Fk deAc="3" nm="fk_usuario_membro" prLkCl="id" upAc="3">
+        <PrTb mn="0" nm="membro" oe="1" sch="igreja" zr="1"/>
+        <CdTb mn="1" nm="usuario" oe="0" sch="igreja" zr="1"/>
+        <ClPr cdCl="membro_id" prCl="id"/>
+      </Fk>
+      <Fk deAc="3" nm="fk_usuario_situacao" prLkCl="id" upAc="3">
+        <PrTb mn="0" nm="situacao" oe="1" sch="igreja" zr="1"/>
+        <CdTb mn="1" nm="usuario" oe="0" sch="igreja" zr="1"/>
+        <ClPr cdCl="situacao_id" prCl="id"/>
+      </Fk>
+      <UniqueConstraints/>
+      <SchTrHis/>
+    </Tbl>
+    <CustomTypes/>
+  </Sch>
+  <Sch Cm="standard public schema" nm="public">
+    <CustomTypes/>
+  </Sch>
+  <Dgm nm="diagramA">
+    <RnCf ClkAct="true" FtSz="9" lkStgy="OffsetDirect" zm="1.0">
+      <VbCfg>
+        <Fg ky="Auto Number" vl="0"/>
+        <Fg ky="Check" vl="0"/>
+        <Fg ky="Comment" vl="0"/>
+        <Fg ky="Data Type" vl="1"/>
+        <Fg ky="Default" vl="0"/>
+        <Fg ky="ENUM Values" vl="0"/>
+        <Fg ky="Length" vl="1"/>
+        <Fg ky="Name" vl="1"/>
+        <Fg ky="Nullable" vl="0"/>
+        <Fg ky="Schema Name" vl="0"/>
+        <Fg ky="Signed" vl="0"/>
+      </VbCfg>
+    </RnCf>
+    <DiaProps>
+      <Show AllCols="1" FkCols="1" FkNms="1" PkCols="1"/>
+      <ErNotation>DbwErNotation</ErNotation>
+      <DbTableRectangleFill>HeaderFooterFill</DbTableRectangleFill>
+      <svg path=""/>
+    </DiaProps>
+    <TbGl bkCl="ffccccff" sch="igreja" tbl="cargo" x="951" y="104"/>
+    <TbGl bkCl="ffccccff" sch="igreja" tbl="facilitacao" x="940" y="328"/>
+    <TbGl bkCl="ffccccff" sch="igreja" tbl="entrada" x="372" y="435"/>
+    <TbGl bkCl="ffccccff" sch="igreja" tbl="membro_formadeentrada" x="123" y="179"/>
+    <TbGl bkCl="ffccccff" sch="igreja" tbl="especie" x="365" y="744"/>
+    <TbGl bkCl="ffccccff" sch="igreja" tbl="receita_item" x="48" y="569"/>
+    <TbGl bkCl="ffccccff" sch="igreja" tbl="leituradiaria" x="1259" y="14"/>
+    <TbGl bkCl="ffccccff" sch="igreja" tbl="membro_cargo" x="696" y="102"/>
+    <TbGl bkCl="ffccccff" sch="igreja" tbl="ministerio" x="955" y="3"/>
+    <TbGl bkCl="ffccccff" sch="igreja" tbl="receita" x="373" y="558"/>
+    <TbGl bkCl="ffccccff" sch="igreja" tbl="membro_tipo" x="122" y="95"/>
+    <TbGl bkCl="ffccccff" sch="igreja" tbl="receita_tipo" x="84" y="714"/>
+    <TbGl bkCl="ff6666ff" sch="igreja" tbl="situacao" x="961" y="579"/>
+    <TbGl bkCl="ff6666ff" sch="igreja" tbl="despesa" x="645" y="544"/>
+    <TbGl bkCl="ff6666ff" sch="igreja" tbl="despesa_tipo" x="687" y="739"/>
+    <TbGl bkCl="ff6666ff" sch="igreja" tbl="celula" x="1455" y="417"/>
+    <TbGl bkCl="ff6666ff" sch="igreja" tbl="entrada_membro" x="111" y="459"/>
+    <TbGl bkCl="ff6666ff" sch="igreja" tbl="celula_relatorio" x="1377" y="708"/>
+    <TbGl bkCl="ff6666ff" sch="igreja" tbl="setor" x="1477" y="285"/>
+    <TbGl bkCl="ff6666ff" sch="igreja" tbl="relatorio_criancaspresentes" x="1306" y="907"/>
+    <TbGl bkCl="ff6666ff" sch="igreja" tbl="celula_membro" x="1781" y="428"/>
+    <TbGl bkCl="ff6666ff" sch="igreja" tbl="prestacaodeconta" x="1769" y="782"/>
+    <TbGl bkCl="ff6666ff" sch="igreja" tbl="relatodavisita" x="1576" y="906"/>
+    <TbGl bkCl="ff6666ff" sch="igreja" tbl="evento" x="1240" y="166"/>
+    <TbGl bkCl="ff6666ff" sch="igreja" tbl="acesso" x="1278" y="79"/>
+    <TbGl bkCl="ff6666ff" sch="igreja" tbl="inscricao" x="1553" y="170"/>
+    <TbGl bkCl="ff6666ff" sch="igreja" tbl="usuario" x="73" y="271"/>
+    <TbGl bkCl="ff6666ff" sch="igreja" tbl="membro" x="370" y="71"/>
+    <FkGl bkCl="ff000000" childEdge="" nm="igreja.acesso.fk_Acesso_cargo" parentEdge="" positioner="">
+      <positionableLines/>
+    </FkGl>
+    <FkGl bkCl="ff000000" childEdge="" nm="igreja.cargo.fk_cargo_ministerio" parentEdge="" positioner="">
+      <positionableLines/>
+    </FkGl>
+    <FkGl bkCl="ff000000" childEdge="" nm="igreja.cargo.fk_cargo_situacao" parentEdge="" positioner="">
+      <positionableLines/>
+    </FkGl>
+    <FkGl bkCl="ff000000" childEdge="" nm="igreja.celula.fk_celula_setor" parentEdge="" positioner="">
+      <positionableLines/>
+    </FkGl>
+    <FkGl bkCl="ff000000" childEdge="" nm="igreja.celula.fk_celula_situacao" parentEdge="" positioner="">
+      <positionableLines/>
+    </FkGl>
+    <FkGl bkCl="ff000000" childEdge="" nm="igreja.celula_membro.fk_membroCelula_celula" parentEdge="" positioner="">
+      <positionableLines/>
+    </FkGl>
+    <FkGl bkCl="ff000000" childEdge="" nm="igreja.celula_membro.fk_membroCelula_membro" parentEdge="" positioner="">
+      <positionableLines/>
+    </FkGl>
+    <FkGl bkCl="ff000000" childEdge="" nm="igreja.celula_membro.fk_membroCelula_situacao" parentEdge="" positioner="">
+      <positionableLines/>
+    </FkGl>
+    <FkGl bkCl="ff000000" childEdge="" nm="igreja.celula_relatorio.fk_relatorioCelula_celula" parentEdge="" positioner="">
+      <positionableLines/>
+    </FkGl>
+    <FkGl bkCl="ff000000" childEdge="" nm="igreja.despesa.fk_despesa_especie" parentEdge="" positioner="">
+      <positionableLines/>
+    </FkGl>
+    <FkGl bkCl="ff000000" childEdge="" nm="igreja.despesa.fk_despesa_membro" parentEdge="" positioner="">
+      <positionableLines/>
+    </FkGl>
+    <FkGl bkCl="ff000000" childEdge="" nm="igreja.despesa.fk_despesa_situacao" parentEdge="" positioner="">
+      <positionableLines/>
+    </FkGl>
+    <FkGl bkCl="ff000000" childEdge="" nm="igreja.despesa.fk_despesa_tipoDeDespesa" parentEdge="" positioner="">
+      <positionableLines/>
+    </FkGl>
+    <FkGl bkCl="ff000000" childEdge="" nm="igreja.entrada.fk_entrada_situacao" parentEdge="" positioner="">
+      <positionableLines/>
+    </FkGl>
+    <FkGl bkCl="ff000000" childEdge="" nm="igreja.entrada_membro.fk_entradaMembro_entrada" parentEdge="" positioner="">
+      <positionableLines/>
+    </FkGl>
+    <FkGl bkCl="ff000000" childEdge="" nm="igreja.entrada_membro.fk_entradaMembro_membro" parentEdge="" positioner="">
+      <positionableLines/>
+    </FkGl>
+    <FkGl bkCl="ff000000" childEdge="" nm="igreja.especie.fk_especie_situacao" parentEdge="" positioner="">
+      <positionableLines/>
+    </FkGl>
+    <FkGl bkCl="ff000000" childEdge="" nm="igreja.evento.fk_evento_membro" parentEdge="" positioner="">
+      <positionableLines/>
+    </FkGl>
+    <FkGl bkCl="ff000000" childEdge="" nm="igreja.evento.fk_evento_situacao" parentEdge="" positioner="">
+      <positionableLines/>
+    </FkGl>
+    <FkGl bkCl="ff000000" childEdge="" nm="igreja.facilitacao.fk_facilitacao_membro" parentEdge="" positioner="">
+      <positionableLines/>
+    </FkGl>
+    <FkGl bkCl="ff000000" childEdge="" nm="igreja.inscricao.fk_Inscricao_evento" parentEdge="" positioner="">
+      <positionableLines/>
+    </FkGl>
+    <FkGl bkCl="ff000000" childEdge="" nm="igreja.membro.fk_membro_entrada_membro" parentEdge="" positioner="">
+      <positionableLines/>
+    </FkGl>
+    <FkGl bkCl="ff000000" childEdge="" nm="igreja.membro.fk_membro_situacao" parentEdge="" positioner="">
+      <positionableLines/>
+    </FkGl>
+    <FkGl bkCl="ff000000" childEdge="" nm="igreja.membro.fk_membro_tipo_membro" parentEdge="" positioner="">
+      <positionableLines/>
+    </FkGl>
+    <FkGl bkCl="ff000000" childEdge="" nm="igreja.membro_cargo.fk_membroCargo_cargo" parentEdge="" positioner="">
+      <positionableLines/>
+    </FkGl>
+    <FkGl bkCl="ff000000" childEdge="" nm="igreja.membro_cargo.fk_membroCargo_membro" parentEdge="" positioner="">
+      <positionableLines/>
+    </FkGl>
+    <FkGl bkCl="ff000000" childEdge="" nm="igreja.membro_cargo.fk_membroCargo_situacao" parentEdge="" positioner="">
+      <positionableLines/>
+    </FkGl>
+    <FkGl bkCl="ff000000" childEdge="" nm="igreja.ministerio.fk_ministerio_situacao" parentEdge="" positioner="">
+      <positionableLines/>
+    </FkGl>
+    <FkGl bkCl="ff000000" childEdge="" nm="igreja.prestacaodeconta.fk_prestacaoDeConta_membroCelula" parentEdge="" positioner="">
+      <positionableLines/>
+    </FkGl>
+    <FkGl bkCl="ff000000" childEdge="" nm="igreja.prestacaodeconta.fk_prestacaoDeConta_relatorioCelula" parentEdge="" positioner="">
+      <positionableLines/>
+    </FkGl>
+    <FkGl bkCl="ff000000" childEdge="" nm="igreja.receita.fk_itemreceita_especie" parentEdge="" positioner="">
+      <positionableLines/>
+    </FkGl>
+    <FkGl bkCl="ff000000" childEdge="" nm="igreja.receita.fk_receita_entrada" parentEdge="" positioner="">
+      <positionableLines/>
+    </FkGl>
+    <FkGl bkCl="ff000000" childEdge="" nm="igreja.receita.fk_receita_membro" parentEdge="" positioner="">
+      <positionableLines/>
+    </FkGl>
+    <FkGl bkCl="ff000000" childEdge="" nm="igreja.receita_item.fk_itemreceita_receita" parentEdge="" positioner="">
+      <positionableLines/>
+    </FkGl>
+    <FkGl bkCl="ff000000" childEdge="" nm="igreja.receita_item.fk_itemreceita_tiporeceita" parentEdge="" positioner="">
+      <positionableLines/>
+    </FkGl>
+    <FkGl bkCl="ff000000" childEdge="" nm="igreja.receita_tipo.fk_tiporeceita_situacao" parentEdge="" positioner="">
+      <positionableLines/>
+    </FkGl>
+    <FkGl bkCl="ff000000" childEdge="" nm="igreja.relatodavisita.fk_relatoDaVisita_relatorioCelula" parentEdge="" positioner="">
+      <positionableLines/>
+    </FkGl>
+    <FkGl bkCl="ff000000" childEdge="" nm="igreja.relatorio_criancaspresentes.fk_criancasPresentes_relatorioCelula" parentEdge="" positioner="">
+      <positionableLines/>
+    </FkGl>
+    <FkGl bkCl="ff000000" childEdge="" nm="igreja.setor.fk_setor_membro" parentEdge="" positioner="">
+      <positionableLines/>
+    </FkGl>
+    <FkGl bkCl="ff000000" childEdge="" nm="igreja.setor.fk_setor_situacao" parentEdge="" positioner="">
+      <positionableLines/>
+    </FkGl>
+    <FkGl bkCl="ff000000" childEdge="" nm="igreja.usuario.fk_usuario_membro" parentEdge="" positioner="">
+      <positionableLines/>
+    </FkGl>
+    <FkGl bkCl="ff000000" childEdge="" nm="igreja.usuario.fk_usuario_situacao" parentEdge="" positioner="">
+      <positionableLines/>
+    </FkGl>
+    <Notes/>
+    <Zones>
+      <Zone bkCl="ffece9d8" h="750" nm="Relatorio Semanal das Celulas" w="388" x="1280" y="605"/>
+      <Zone bkCl="ffece9d8" h="890" nm="Tesouraria" w="475" x="32" y="405"/>
+    </Zones>
+  </Dgm>
+  <RnmMgr NxRnmId="174">
+    <RnmCh ObjCls="Column" ParCls="Table" ParNme="membro" SupCls="Schema" SupNme="igreja">
+      <Rnm id="1" nNm="id" oNm="codmembro"/>
+    </RnmCh>
+    <RnmCh ObjCls="Column" ParCls="Table" ParNme="membro_tipo" SupCls="Schema" SupNme="igreja">
+      <Rnm id="2" nNm="id" oNm="codtipomembro"/>
+    </RnmCh>
+    <RnmCh ObjCls="Column" ParCls="Table" ParNme="membro" SupCls="Schema" SupNme="igreja">
+      <Rnm id="116" nNm="membro_tipo_id" oNm="tipodemembro_id"/>
+      <Rnm id="83" nNm="tipodemembro_id" oNm="tipodemembro_Id"/>
+      <Rnm id="81" nNm="tipodemembro_Id" oNm="tipoDeMembro_Id"/>
+      <Rnm id="15" nNm="tipoDeMembro_Id" oNm="tipoMembro_Id"/>
+      <Rnm id="14" nNm="tipoMembro_Id" oNm="tipomembro_Id"/>
+      <Rnm id="3" nNm="tipomembro_Id" oNm="tipomembro"/>
+    </RnmCh>
+    <RnmCh ObjCls="Column" ParCls="Table" ParNme="membro_tipo" SupCls="Schema" SupNme="igreja">
+      <Rnm id="4" nNm="descricao" oNm="tipomembro"/>
+    </RnmCh>
+    <RnmCh ObjCls="Column" ParCls="Table" ParNme="membro_formadeentrada" SupCls="Schema" SupNme="igreja">
+      <Rnm id="5" nNm="id" oNm="codentrada"/>
+    </RnmCh>
+    <RnmCh ObjCls="Table" ParCls="Schema" ParNme="igreja" SupCls="" SupNme="">
+      <Rnm id="106" nNm="membro_formadeentrada" oNm="formadeentrada"/>
+      <Rnm id="90" nNm="formadeentrada" oNm="formaDeEntrada"/>
+      <Rnm id="6" nNm="formaDeEntrada" oNm="entradamembro"/>
+    </RnmCh>
+    <RnmCh ObjCls="Table" ParCls="Schema" ParNme="igreja" SupCls="" SupNme="">
+      <Rnm id="104" nNm="membro_tipo" oNm="tipodemembro"/>
+      <Rnm id="89" nNm="tipodemembro" oNm="tipoDeMembro"/>
+      <Rnm id="16" nNm="tipoDeMembro" oNm="tipoDoMembro"/>
+      <Rnm id="8" nNm="tipoDoMembro" oNm="tipoMembro"/>
+      <Rnm id="7" nNm="tipoMembro" oNm="tipomembro"/>
+    </RnmCh>
+    <RnmCh ObjCls="Column" ParCls="Table" ParNme="membro" SupCls="Schema" SupNme="igreja">
+      <Rnm id="117" nNm="membro_formadeentrada_id" oNm="formadeentrada_id"/>
+      <Rnm id="82" nNm="formadeentrada_id" oNm="formaDeEntrada_Id"/>
+      <Rnm id="9" nNm="formaDeEntrada_Id" oNm="entradamembro"/>
+    </RnmCh>
+    <RnmCh ObjCls="Column" ParCls="Table" ParNme="membro_formadeentrada" SupCls="Schema" SupNme="igreja">
+      <Rnm id="11" nNm="descricao" oNm="nome"/>
+      <Rnm id="10" nNm="nome" oNm="tipoentrada"/>
+    </RnmCh>
+    <RnmCh ObjCls="Column" ParCls="Table" ParNme="membro" SupCls="Schema" SupNme="igreja">
+      <Rnm id="79" nNm="datadenascimento" oNm="dataDeNascimento"/>
+      <Rnm id="12" nNm="dataDeNascimento" oNm="datanascimento"/>
+    </RnmCh>
+    <RnmCh ObjCls="Column" ParCls="Table" ParNme="membro" SupCls="Schema" SupNme="igreja">
+      <Rnm id="80" nNm="estadocivil" oNm="estadoCivil"/>
+      <Rnm id="13" nNm="estadoCivil" oNm="estadocivil"/>
+    </RnmCh>
+    <RnmCh ObjCls="Column" ParCls="Table" ParNme="membro" SupCls="Schema" SupNme="igreja">
+      <Rnm id="85" nNm="datadeentrada" oNm="dataDeEntrada"/>
+      <Rnm id="17" nNm="dataDeEntrada" oNm="dataentrada"/>
+    </RnmCh>
+    <RnmCh ObjCls="Column" ParCls="Table" ParNme="membro" SupCls="Schema" SupNme="igreja">
+      <Rnm id="86" nNm="datadoultimoacesso" oNm="dataDoUltimoAcesso"/>
+      <Rnm id="18" nNm="dataDoUltimoAcesso" oNm="dataultimoacesso"/>
+    </RnmCh>
+    <RnmCh ObjCls="Column" ParCls="Table" ParNme="membro" SupCls="Schema" SupNme="igreja">
+      <Rnm id="87" nNm="datadecancelamento" oNm="dataDeCancelamento"/>
+      <Rnm id="19" nNm="dataDeCancelamento" oNm="datacancelamento"/>
+    </RnmCh>
+    <RnmCh ObjCls="Column" ParCls="Table" ParNme="membro" SupCls="Schema" SupNme="igreja">
+      <Rnm id="88" nNm="motivocancelamento" oNm="motivoCancelamento"/>
+      <Rnm id="20" nNm="motivoCancelamento" oNm="motivocancelamento"/>
+    </RnmCh>
+    <RnmCh ObjCls="Column" ParCls="Table" ParNme="membro" SupCls="Schema" SupNme="igreja">
+      <Rnm id="21" nNm="mostrarDados" oNm="mostrardados"/>
+    </RnmCh>
+    <RnmCh ObjCls="Table" ParCls="Schema" ParNme="igreja" SupCls="" SupNme="">
+      <Rnm id="22" nNm="facilitacao" oNm="editorial"/>
+    </RnmCh>
+    <RnmCh ObjCls="Column" ParCls="Table" ParNme="facilitacao" SupCls="Schema" SupNme="igreja">
+      <Rnm id="23" nNm="id" oNm="codeditorial"/>
+    </RnmCh>
+    <RnmCh ObjCls="Column" ParCls="Table" ParNme="facilitacao" SupCls="Schema" SupNme="igreja">
+      <Rnm id="127" nNm="datadereferencia" oNm="dataDeReferencia"/>
+      <Rnm id="24" nNm="dataDeReferencia" oNm="datacriacao"/>
+    </RnmCh>
+    <RnmCh ObjCls="Column" ParCls="Table" ParNme="entrada" SupCls="Schema" SupNme="igreja">
+      <Rnm id="25" nNm="id" oNm="codigo"/>
+    </RnmCh>
+    <RnmCh ObjCls="Column" ParCls="Table" ParNme="entrada" SupCls="Schema" SupNme="igreja">
+      <Rnm id="91" nNm="datadaentrada" oNm="dataDaEntrada"/>
+      <Rnm id="27" nNm="dataDaEntrada" oNm="dataDaentrada"/>
+      <Rnm id="26" nNm="dataDaentrada" oNm="datacriacao"/>
+    </RnmCh>
+    <RnmCh ObjCls="Column" ParCls="Table" ParNme="receita" SupCls="Schema" SupNme="igreja">
+      <Rnm id="28" nNm="id" oNm="codigo"/>
+    </RnmCh>
+    <RnmCh ObjCls="Column" ParCls="Table" ParNme="receita" SupCls="Schema" SupNme="igreja">
+      <Rnm id="111" nNm="entrada_id" oNm="entrada_Id"/>
+      <Rnm id="29" nNm="entrada_Id" oNm="entrada"/>
+    </RnmCh>
+    <RnmCh ObjCls="Column" ParCls="Table" ParNme="receita" SupCls="Schema" SupNme="igreja">
+      <Rnm id="30" nNm="nome" oNm="contribuinte"/>
+    </RnmCh>
+    <RnmCh ObjCls="Column" ParCls="Table" ParNme="receita" SupCls="Schema" SupNme="igreja">
+      <Rnm id="112" nNm="membro_id" oNm="membro_Id"/>
+      <Rnm id="31" nNm="membro_Id" oNm="membro"/>
+    </RnmCh>
+    <RnmCh ObjCls="Column" ParCls="Table" ParNme="receita" SupCls="Schema" SupNme="igreja">
+      <Rnm id="113" nNm="especie_id" oNm="especie_Id"/>
+      <Rnm id="32" nNm="especie_Id" oNm="especie"/>
+    </RnmCh>
+    <RnmCh ObjCls="Column" ParCls="Table" ParNme="situacao" SupCls="Schema" SupNme="igreja">
+      <Rnm id="33" nNm="id" oNm="Id"/>
+    </RnmCh>
+    <RnmCh ObjCls="Column" ParCls="Table" ParNme="receita" SupCls="Schema" SupNme="igreja">
+      <Rnm id="114" nNm="valortotal" oNm="valorTotal"/>
+      <Rnm id="34" nNm="valorTotal" oNm="valortotal"/>
+    </RnmCh>
+    <RnmCh ObjCls="Column" ParCls="Table" ParNme="membro" SupCls="Schema" SupNme="igreja">
+      <Rnm id="84" nNm="situacao_id" oNm="situacao_Id"/>
+      <Rnm id="35" nNm="situacao_Id" oNm="situacao"/>
+    </RnmCh>
+    <RnmCh ObjCls="Column" ParCls="Table" ParNme="entrada" SupCls="Schema" SupNme="igreja">
+      <Rnm id="92" nNm="situacao_id" oNm="situacao_Id"/>
+      <Rnm id="36" nNm="situacao_Id" oNm="situacao"/>
+    </RnmCh>
+    <RnmCh ObjCls="Column" ParCls="Table" ParNme="especie" SupCls="Schema" SupNme="igreja">
+      <Rnm id="119" nNm="situacao_id" oNm="situacao_Id"/>
+      <Rnm id="37" nNm="situacao_Id" oNm="situacao"/>
+    </RnmCh>
+    <RnmCh ObjCls="Column" ParCls="Table" ParNme="receita_tipo" SupCls="Schema" SupNme="igreja">
+      <Rnm id="120" nNm="situacao_id" oNm="situacao_Id"/>
+      <Rnm id="38" nNm="situacao_Id" oNm="situacao"/>
+    </RnmCh>
+    <RnmCh ObjCls="Table" ParCls="Schema" ParNme="igreja" SupCls="" SupNme="">
+      <Rnm id="108" nNm="receita_tipo" oNm="tipoDaReceita"/>
+      <Rnm id="39" nNm="tipoDaReceita" oNm="tiporeceita"/>
+    </RnmCh>
+    <RnmCh ObjCls="Table" ParCls="Schema" ParNme="igreja" SupCls="" SupNme="">
+      <Rnm id="103" nNm="receita_item" oNm="itemDaReceita"/>
+      <Rnm id="40" nNm="itemDaReceita" oNm="itemreceita"/>
+    </RnmCh>
+    <RnmCh ObjCls="Column" ParCls="Table" ParNme="especie" SupCls="Schema" SupNme="igreja">
+      <Rnm id="41" nNm="id" oNm="codigo"/>
+    </RnmCh>
+    <RnmCh ObjCls="Column" ParCls="Table" ParNme="receita_item" SupCls="Schema" SupNme="igreja">
+      <Rnm id="42" nNm="id" oNm="codigo"/>
+    </RnmCh>
+    <RnmCh ObjCls="Column" ParCls="Table" ParNme="receita_item" SupCls="Schema" SupNme="igreja">
+      <Rnm id="109" nNm="receita_id" oNm="receita_Id"/>
+      <Rnm id="43" nNm="receita_Id" oNm="receita"/>
+    </RnmCh>
+    <RnmCh ObjCls="Column" ParCls="Table" ParNme="receita_item" SupCls="Schema" SupNme="igreja">
+      <Rnm id="118" nNm="receita_tipo_id" oNm="receita_item_id"/>
+      <Rnm id="115" nNm="receita_item_id" oNm="tipoDaReceita_id"/>
+      <Rnm id="110" nNm="tipoDaReceita_id" oNm="tipoDaReceita_Id"/>
+      <Rnm id="44" nNm="tipoDaReceita_Id" oNm="tiporeceita"/>
+    </RnmCh>
+    <RnmCh ObjCls="Column" ParCls="Table" ParNme="despesa" SupCls="Schema" SupNme="igreja">
+      <Rnm id="45" nNm="id" oNm="Id"/>
+    </RnmCh>
+    <RnmCh ObjCls="Column" ParCls="Table" ParNme="despesa" SupCls="Schema" SupNme="igreja">
+      <Rnm id="122" nNm="despesa_tipo_id" oNm="tipoDaDespesa_Id"/>
+      <Rnm id="46" nNm="tipoDaDespesa_Id" oNm="tipoDaDespesa"/>
+    </RnmCh>
+    <RnmCh ObjCls="Column" ParCls="Table" ParNme="despesa_tipo" SupCls="Schema" SupNme="igreja">
+      <Rnm id="47" nNm="id" oNm="Id"/>
+    </RnmCh>
+    <RnmCh ObjCls="Column" ParCls="Table" ParNme="celula" SupCls="Schema" SupNme="igreja">
+      <Rnm id="48" nNm="id" oNm="Id"/>
+    </RnmCh>
+    <RnmCh ObjCls="Column" ParCls="Table" ParNme="celula" SupCls="Schema" SupNme="igreja">
+      <Rnm id="49" nNm="lider" oNm="Lider"/>
+    </RnmCh>
+    <RnmCh ObjCls="Column" ParCls="Table" ParNme="entrada_membro" SupCls="Schema" SupNme="igreja">
+      <Rnm id="95" nNm="entrada_id" oNm="entrada_Id"/>
+      <Rnm id="50" nNm="entrada_Id" oNm="Id"/>
+    </RnmCh>
+    <RnmCh ObjCls="Column" ParCls="Table" ParNme="facilitacao" SupCls="Schema" SupNme="igreja">
+      <Rnm id="128" nNm="membro_id" oNm="membro_Id"/>
+      <Rnm id="51" nNm="membro_Id" oNm="codmembro"/>
+    </RnmCh>
+    <RnmCh ObjCls="Column" ParCls="Table" ParNme="setor" SupCls="Schema" SupNme="igreja">
+      <Rnm id="52" nNm="id" oNm="Id"/>
+    </RnmCh>
+    <RnmCh ObjCls="Column" ParCls="Table" ParNme="celula_relatorio" SupCls="Schema" SupNme="igreja">
+      <Rnm id="53" nNm="id" oNm="Id"/>
+    </RnmCh>
+    <RnmCh ObjCls="Column" ParCls="Table" ParNme="celula_membro" SupCls="Schema" SupNme="igreja">
+      <Rnm id="54" nNm="id" oNm="Id"/>
+    </RnmCh>
+    <RnmCh ObjCls="Table" ParCls="Schema" ParNme="igreja" SupCls="" SupNme="">
+      <Rnm id="163" nNm="prestacaodeconta" oNm="prestacaoDeConta"/>
+      <Rnm id="55" nNm="prestacaoDeConta" oNm="membroPresente"/>
+    </RnmCh>
+    <RnmCh ObjCls="Column" ParCls="Table" ParNme="prestacaodeconta" SupCls="Schema" SupNme="igreja">
+      <Rnm id="56" nNm="id" oNm="Id"/>
+    </RnmCh>
+    <RnmCh ObjCls="Column" ParCls="Table" ParNme="relatodavisita" SupCls="Schema" SupNme="igreja">
+      <Rnm id="57" nNm="id" oNm="Id"/>
+    </RnmCh>
+    <RnmCh ObjCls="Column" ParCls="Table" ParNme="ministerio" SupCls="Schema" SupNme="igreja">
+      <Rnm id="58" nNm="id" oNm="codministerio"/>
+    </RnmCh>
+    <RnmCh ObjCls="Column" ParCls="Table" ParNme="ministerio" SupCls="Schema" SupNme="igreja">
+      <Rnm id="59" nNm="nome" oNm="ministerio"/>
+    </RnmCh>
+    <RnmCh ObjCls="Column" ParCls="Table" ParNme="ministerio" SupCls="Schema" SupNme="igreja">
+      <Rnm id="129" nNm="situacao_id" oNm="situacao_Id"/>
+      <Rnm id="60" nNm="situacao_Id" oNm="situacao"/>
+    </RnmCh>
+    <RnmCh ObjCls="Column" ParCls="Table" ParNme="cargo" SupCls="Schema" SupNme="igreja">
+      <Rnm id="61" nNm="id" oNm="codcargo"/>
+    </RnmCh>
+    <RnmCh ObjCls="Column" ParCls="Table" ParNme="cargo" SupCls="Schema" SupNme="igreja">
+      <Rnm id="130" nNm="ministerio_id" oNm="ministerio_Id"/>
+      <Rnm id="62" nNm="ministerio_Id" oNm="codministerio"/>
+    </RnmCh>
+    <RnmCh ObjCls="Column" ParCls="Table" ParNme="cargo" SupCls="Schema" SupNme="igreja">
+      <Rnm id="131" nNm="situacao_id" oNm="situacao_Id"/>
+      <Rnm id="63" nNm="situacao_Id" oNm="situacao"/>
+    </RnmCh>
+    <RnmCh ObjCls="Table" ParCls="Schema" ParNme="igreja" SupCls="" SupNme="">
+      <Rnm id="105" nNm="membro_cargo" oNm="membrocargo"/>
+      <Rnm id="97" nNm="membrocargo" oNm="membroCargo"/>
+      <Rnm id="64" nNm="membroCargo" oNm="membroministerio"/>
+    </RnmCh>
+    <RnmCh ObjCls="Column" ParCls="Table" ParNme="membro_cargo" SupCls="Schema" SupNme="igreja">
+      <Rnm id="65" nNm="id" oNm="codigo"/>
+    </RnmCh>
+    <RnmCh ObjCls="Column" ParCls="Table" ParNme="membro_cargo" SupCls="Schema" SupNme="igreja">
+      <Rnm id="98" nNm="membro_id" oNm="membro_Id"/>
+      <Rnm id="66" nNm="membro_Id" oNm="codmembro"/>
+    </RnmCh>
+    <RnmCh ObjCls="Column" ParCls="Table" ParNme="membro_cargo" SupCls="Schema" SupNme="igreja">
+      <Rnm id="99" nNm="cargo_id" oNm="cargo_Id"/>
+      <Rnm id="67" nNm="cargo_Id" oNm="codcargo"/>
+    </RnmCh>
+    <RnmCh ObjCls="Column" ParCls="Table" ParNme="membro_cargo" SupCls="Schema" SupNme="igreja">
+      <Rnm id="100" nNm="situacao_id" oNm="situacao_Id"/>
+      <Rnm id="68" nNm="situacao_Id" oNm="situacao"/>
+    </RnmCh>
+    <RnmCh ObjCls="Column" ParCls="Table" ParNme="membro_cargo" SupCls="Schema" SupNme="igreja">
+      <Rnm id="101" nNm="datadeentrada" oNm="dataDeEntrada"/>
+      <Rnm id="69" nNm="dataDeEntrada" oNm="dataentrada"/>
+    </RnmCh>
+    <RnmCh ObjCls="Column" ParCls="Table" ParNme="membro_cargo" SupCls="Schema" SupNme="igreja">
+      <Rnm id="102" nNm="datadesaida" oNm="dataDeSaida"/>
+      <Rnm id="70" nNm="dataDeSaida" oNm="datasaida"/>
+    </RnmCh>
+    <RnmCh ObjCls="Column" ParCls="Table" ParNme="acesso" SupCls="Schema" SupNme="igreja">
+      <Rnm id="71" nNm="id" oNm="codacesso"/>
+    </RnmCh>
+    <RnmCh ObjCls="Column" ParCls="Table" ParNme="acesso" SupCls="Schema" SupNme="igreja">
+      <Rnm id="134" nNm="cargo_id" oNm="cargo_Id"/>
+      <Rnm id="72" nNm="cargo_Id" oNm="codcargo"/>
+    </RnmCh>
+    <RnmCh ObjCls="Column" ParCls="Table" ParNme="acesso" SupCls="Schema" SupNme="igreja">
+      <Rnm id="73" nNm="token" oNm="acesso"/>
+    </RnmCh>
+    <RnmCh ObjCls="Table" ParCls="Schema" ParNme="igreja" SupCls="" SupNme="">
+      <Rnm id="74" nNm="evento" oNm="aviso"/>
+    </RnmCh>
+    <RnmCh ObjCls="Column" ParCls="Table" ParNme="receita_tipo" SupCls="Schema" SupNme="igreja">
+      <Rnm id="75" nNm="id" oNm="codigo"/>
+    </RnmCh>
+    <RnmCh ObjCls="Column" ParCls="Table" ParNme="inscricao" SupCls="Schema" SupNme="igreja">
+      <Rnm id="76" nNm="id" oNm="Id"/>
+    </RnmCh>
+    <RnmCh ObjCls="Column" ParCls="Table" ParNme="inscricao" SupCls="Schema" SupNme="igreja">
+      <Rnm id="77" nNm="evento_id" oNm="Evento_id"/>
+    </RnmCh>
+    <RnmCh ObjCls="Table" ParCls="Schema" ParNme="igreja" SupCls="" SupNme="">
+      <Rnm id="78" nNm="inscricao" oNm="Inscricao"/>
+    </RnmCh>
+    <RnmCh ObjCls="Column" ParCls="Table" ParNme="entrada" SupCls="Schema" SupNme="igreja">
+      <Rnm id="93" nNm="datadeinsercao" oNm="dataDeInsercao"/>
+    </RnmCh>
+    <RnmCh ObjCls="Table" ParCls="Schema" ParNme="igreja" SupCls="" SupNme="">
+      <Rnm id="173" nNm="entrada_membro" oNm="entradamembro"/>
+      <Rnm id="94" nNm="entradamembro" oNm="entradaMembro"/>
+    </RnmCh>
+    <RnmCh ObjCls="Column" ParCls="Table" ParNme="entrada_membro" SupCls="Schema" SupNme="igreja">
+      <Rnm id="96" nNm="membro_id" oNm="membro_Id"/>
+    </RnmCh>
+    <RnmCh ObjCls="Table" ParCls="Schema" ParNme="igreja" SupCls="" SupNme="">
+      <Rnm id="107" nNm="despesa_tipo" oNm="tipoDeDespesa"/>
+    </RnmCh>
+    <RnmCh ObjCls="Column" ParCls="Table" ParNme="despesa" SupCls="Schema" SupNme="igreja">
+      <Rnm id="121" nNm="especie_id" oNm="especie_Id"/>
+    </RnmCh>
+    <RnmCh ObjCls="Column" ParCls="Table" ParNme="despesa" SupCls="Schema" SupNme="igreja">
+      <Rnm id="123" nNm="datadevencimento" oNm="DataDeVencimento"/>
+    </RnmCh>
+    <RnmCh ObjCls="Column" ParCls="Table" ParNme="despesa" SupCls="Schema" SupNme="igreja">
+      <Rnm id="124" nNm="datadepagamento" oNm="DataDePagamento"/>
+    </RnmCh>
+    <RnmCh ObjCls="Column" ParCls="Table" ParNme="despesa" SupCls="Schema" SupNme="igreja">
+      <Rnm id="125" nNm="situacao_id" oNm="situacao_Id"/>
+    </RnmCh>
+    <RnmCh ObjCls="Column" ParCls="Table" ParNme="despesa" SupCls="Schema" SupNme="igreja">
+      <Rnm id="126" nNm="membro_id" oNm="membro_Id"/>
+    </RnmCh>
+    <RnmCh ObjCls="Column" ParCls="Table" ParNme="facilitacao" SupCls="Schema" SupNme="igreja">
+      <Rnm id="133" nNm="documentoempdf" oNm="documentormpdf"/>
+      <Rnm id="132" nNm="documentormpdf" oNm="documentoEmPdf"/>
+    </RnmCh>
+    <RnmCh ObjCls="Column" ParCls="Table" ParNme="evento" SupCls="Schema" SupNme="igreja">
+      <Rnm id="135" nNm="datadeinicio" oNm="dataDeInicio"/>
+    </RnmCh>
+    <RnmCh ObjCls="Column" ParCls="Table" ParNme="evento" SupCls="Schema" SupNme="igreja">
+      <Rnm id="136" nNm="datadetermino" oNm="dataDeTermino"/>
+    </RnmCh>
+    <RnmCh ObjCls="Column" ParCls="Table" ParNme="evento" SupCls="Schema" SupNme="igreja">
+      <Rnm id="137" nNm="situacao_id" oNm="situacao_Id"/>
+    </RnmCh>
+    <RnmCh ObjCls="Column" ParCls="Table" ParNme="evento" SupCls="Schema" SupNme="igreja">
+      <Rnm id="138" nNm="membro_id" oNm="membro_Id"/>
+    </RnmCh>
+    <RnmCh ObjCls="Column" ParCls="Table" ParNme="setor" SupCls="Schema" SupNme="igreja">
+      <Rnm id="139" nNm="situacao_id" oNm="situacao_Id"/>
+    </RnmCh>
+    <RnmCh ObjCls="Column" ParCls="Table" ParNme="celula" SupCls="Schema" SupNme="igreja">
+      <Rnm id="140" nNm="situacao_id" oNm="situacao_Id"/>
+    </RnmCh>
+    <RnmCh ObjCls="Column" ParCls="Table" ParNme="celula" SupCls="Schema" SupNme="igreja">
+      <Rnm id="141" nNm="diadereuniao" oNm="diaDeReuniao"/>
+    </RnmCh>
+    <RnmCh ObjCls="Column" ParCls="Table" ParNme="celula" SupCls="Schema" SupNme="igreja">
+      <Rnm id="142" nNm="horadereuniao" oNm="horaDeReuniao"/>
+    </RnmCh>
+    <RnmCh ObjCls="Column" ParCls="Table" ParNme="celula" SupCls="Schema" SupNme="igreja">
+      <Rnm id="143" nNm="setor_id" oNm="setor_Id"/>
+    </RnmCh>
+    <RnmCh ObjCls="Table" ParCls="Schema" ParNme="igreja" SupCls="" SupNme="">
+      <Rnm id="144" nNm="celula_relatorio" oNm="relatorioCelula"/>
+    </RnmCh>
+    <RnmCh ObjCls="Column" ParCls="Table" ParNme="celula_relatorio" SupCls="Schema" SupNme="igreja">
+      <Rnm id="145" nNm="celula_id" oNm="celula_Id"/>
+    </RnmCh>
+    <RnmCh ObjCls="Column" ParCls="Table" ParNme="celula_relatorio" SupCls="Schema" SupNme="igreja">
+      <Rnm id="146" nNm="datadereuniao" oNm="dataDeReuniao"/>
+    </RnmCh>
+    <RnmCh ObjCls="Column" ParCls="Table" ParNme="celula_relatorio" SupCls="Schema" SupNme="igreja">
+      <Rnm id="147" nNm="valordaoferta" oNm="valorDaOferta"/>
+    </RnmCh>
+    <RnmCh ObjCls="Column" ParCls="Table" ParNme="celula_relatorio" SupCls="Schema" SupNme="igreja">
+      <Rnm id="148" nNm="totadepresentes" oNm="totaDePresentes"/>
+    </RnmCh>
+    <RnmCh ObjCls="Column" ParCls="Table" ParNme="celula_relatorio" SupCls="Schema" SupNme="igreja">
+      <Rnm id="149" nNm="totaldemembrospresentes" oNm="totalDeMembrosPresentes"/>
+    </RnmCh>
+    <RnmCh ObjCls="Column" ParCls="Table" ParNme="celula_relatorio" SupCls="Schema" SupNme="igreja">
+      <Rnm id="150" nNm="totaldefrequentadoresassiduos" oNm="totalDeFrequentadoresAssiduos"/>
+    </RnmCh>
+    <RnmCh ObjCls="Column" ParCls="Table" ParNme="celula_relatorio" SupCls="Schema" SupNme="igreja">
+      <Rnm id="151" nNm="totaldevisitantes" oNm="totalDeVisitantes"/>
+    </RnmCh>
+    <RnmCh ObjCls="Column" ParCls="Table" ParNme="celula_relatorio" SupCls="Schema" SupNme="igreja">
+      <Rnm id="153" nNm="totaldecriancas" oNm="totaldecrianças"/>
+      <Rnm id="152" nNm="totaldecrianças" oNm="totalDeCrianças"/>
+    </RnmCh>
+    <RnmCh ObjCls="Column" ParCls="Table" ParNme="celula_relatorio" SupCls="Schema" SupNme="igreja">
+      <Rnm id="154" nNm="quantidadedevisitas" oNm="quantidadeDeVisitas"/>
+    </RnmCh>
+    <RnmCh ObjCls="Column" ParCls="Table" ParNme="relatorio_criancaspresentes" SupCls="Schema" SupNme="igreja">
+      <Rnm id="155" nNm="id" oNm="Id"/>
+    </RnmCh>
+    <RnmCh ObjCls="Table" ParCls="Schema" ParNme="igreja" SupCls="" SupNme="">
+      <Rnm id="161" nNm="relatorio_criancaspresentes" oNm="relatorio_criancasPresentes"/>
+      <Rnm id="156" nNm="relatorio_criancasPresentes" oNm="criancasPresentes"/>
+    </RnmCh>
+    <RnmCh ObjCls="Column" ParCls="Table" ParNme="relatorio_criancaspresentes" SupCls="Schema" SupNme="igreja">
+      <Rnm id="159" nNm="celula_relatorio_id" oNm="celula_relatorio_Id"/>
+      <Rnm id="157" nNm="celula_relatorio_Id" oNm="relatorioCelula_Id"/>
+    </RnmCh>
+    <RnmCh ObjCls="Column" ParCls="Table" ParNme="relatodavisita" SupCls="Schema" SupNme="igreja">
+      <Rnm id="158" nNm="relatoriocelula_id" oNm="relatorioCelula_Id"/>
+    </RnmCh>
+    <RnmCh ObjCls="Column" ParCls="Table" ParNme="relatodavisita" SupCls="Schema" SupNme="igreja">
+      <Rnm id="160" nNm="descricao" oNm="Descricao"/>
+    </RnmCh>
+    <RnmCh ObjCls="Table" ParCls="Schema" ParNme="igreja" SupCls="" SupNme="">
+      <Rnm id="162" nNm="relatodavisita" oNm="relatoDaVisita"/>
+    </RnmCh>
+    <RnmCh ObjCls="Column" ParCls="Table" ParNme="prestacaodeconta" SupCls="Schema" SupNme="igreja">
+      <Rnm id="164" nNm="relatoriocelula_id" oNm="relatorioCelula_Id"/>
+    </RnmCh>
+    <RnmCh ObjCls="Column" ParCls="Table" ParNme="prestacaodeconta" SupCls="Schema" SupNme="igreja">
+      <Rnm id="165" nNm="membrocelula_id" oNm="membroCelula_Id"/>
+    </RnmCh>
+    <RnmCh ObjCls="Column" ParCls="Table" ParNme="prestacaodeconta" SupCls="Schema" SupNme="igreja">
+      <Rnm id="166" nNm="motivodafalta" oNm="motivoDaFalta"/>
+    </RnmCh>
+    <RnmCh ObjCls="Column" ParCls="Table" ParNme="celula_membro" SupCls="Schema" SupNme="igreja">
+      <Rnm id="167" nNm="membro_id" oNm="membro_Id"/>
+    </RnmCh>
+    <RnmCh ObjCls="Column" ParCls="Table" ParNme="celula_membro" SupCls="Schema" SupNme="igreja">
+      <Rnm id="168" nNm="situacao_id" oNm="situacao_Id"/>
+    </RnmCh>
+    <RnmCh ObjCls="Column" ParCls="Table" ParNme="celula_membro" SupCls="Schema" SupNme="igreja">
+      <Rnm id="169" nNm="ehlider" oNm="ehLider"/>
+    </RnmCh>
+    <RnmCh ObjCls="Column" ParCls="Table" ParNme="celula_membro" SupCls="Schema" SupNme="igreja">
+      <Rnm id="170" nNm="celula_id" oNm="celula_Id"/>
+    </RnmCh>
+    <RnmCh ObjCls="Table" ParCls="Schema" ParNme="igreja" SupCls="" SupNme="">
+      <Rnm id="171" nNm="celula_membro" oNm="membroCelula"/>
+    </RnmCh>
+    <RnmCh ObjCls="Column" ParCls="Table" ParNme="usuario" SupCls="Schema" SupNme="igreja">
+      <Rnm id="172" nNm="id" oNm="Id"/>
+    </RnmCh>
+  </RnmMgr>
+  <DbDocOptionMgr>
+    <BasicOptionMgr>
+      <Name>db.doc.option.mgr</Name>
+      <BoolOpt lbl="Diagrams" nm="doc.diagrams" on="1" spl="0"/>
+      <BoolOpt lbl="Foreign Keys" nm="doc.fks" on="1" spl="0"/>
+      <BoolOpt lbl="Indexes" nm="doc.indexes" on="1" spl="0"/>
+      <BoolOpt lbl="Overwrite CSS File" nm="doc.overwrite.css" on="1" spl="0"/>
+      <BoolOpt lbl="Procedures" nm="doc.procs" on="1" spl="0"/>
+      <BoolOpt lbl="Schemas" nm="doc.schemas" on="1" spl="0"/>
+      <BoolOpt lbl="Sequences" nm="doc.sequences" on="1" spl="0"/>
+      <BoolOpt lbl="Tables" nm="doc.tables" on="1" spl="0"/>
+      <BoolOpt lbl="Triggers" nm="doc.triggers" on="1" spl="0"/>
+      <BoolOpt lbl="Views" nm="doc.views" on="1" spl="0"/>
+    </BasicOptionMgr>
+  </DbDocOptionMgr>
+  <OpenEditors>
+    <OpenEditor ClsNm="Diagram" fqn="null.diagramA" selected="1"/>
+  </OpenEditors>
+  <TreePaths>
+    <TreePath/>
+    <TreePath>/Schemas (2)</TreePath>
+    <TreePath>/Schemas (2)/igreja</TreePath>
+    <TreePath>/Schemas (2)/igreja/Tables (28)</TreePath>
+    <TreePath>/Diagrams (1)</TreePath>
+  </TreePaths>
+  <SqlTexts/>
+</Db>

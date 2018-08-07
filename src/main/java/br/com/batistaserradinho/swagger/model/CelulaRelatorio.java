@@ -30,10 +30,10 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Carlos
+ * @author cruiz
  */
 @Entity
-@Table(name = "celula_relatorio", catalog = "igreja", schema = "igreja")
+@Table(catalog = "igreja", schema = "igreja", name = "celula_relatorio")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "CelulaRelatorio.findAll", query = "SELECT c FROM CelulaRelatorio c")
@@ -53,27 +53,34 @@ public class CelulaRelatorio implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(nullable = false)
+    @Column(name = "id")
     private Integer id;
     @Size(max = 100)
-    @Column(length = 100)
+    @Column(name = "discipulador")
     private String discipulador;
+    @Column(name = "datadereuniao")
     @Temporal(TemporalType.TIMESTAMP)
     private Date datadereuniao;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Column(precision = 10, scale = 2)
+    @Column(name = "valordaoferta")
     private BigDecimal valordaoferta;
+    @Column(name = "totadepresentes")
     private Integer totadepresentes;
+    @Column(name = "totaldemembrospresentes")
     private Integer totaldemembrospresentes;
+    @Column(name = "totaldefrequentadoresassiduos")
     private Integer totaldefrequentadoresassiduos;
+    @Column(name = "totaldevisitantes")
     private Integer totaldevisitantes;
+    @Column(name = "totaldecriancas")
     private Integer totaldecriancas;
+    @Column(name = "quantidadedevisitas")
     private Integer quantidadedevisitas;
     @OneToMany(mappedBy = "relatoriocelulaId")
     private Collection<PrestacaoDeConta> prestacaoDeContaCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "relatoriocelulaId")
     private Collection<RelatoDaVisita> relatoDaVisitaCollection;
-    @JoinColumn(name = "celula_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "celula_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Celula celulaId;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "celulaRelatorioId")

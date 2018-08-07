@@ -10,11 +10,8 @@ import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -30,81 +27,71 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author cruiz
  */
 @Entity
-@Table(catalog = "igreja", schema = "igreja", name = "facilitacao")
+@Table(catalog = "igreja", schema = "igreja", name = "usuario")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Facilitacao.findAll", query = "SELECT f FROM Facilitacao f")
-    , @NamedQuery(name = "Facilitacao.findById", query = "SELECT f FROM Facilitacao f WHERE f.id = :id")
-    , @NamedQuery(name = "Facilitacao.findByTitulo", query = "SELECT f FROM Facilitacao f WHERE f.titulo = :titulo")
-    , @NamedQuery(name = "Facilitacao.findByDatadereferencia", query = "SELECT f FROM Facilitacao f WHERE f.datadereferencia = :datadereferencia")})
-public class Facilitacao implements Serializable {
+    @NamedQuery(name = "Usuario.findAll", query = "SELECT u FROM Usuario u")
+    , @NamedQuery(name = "Usuario.findById", query = "SELECT u FROM Usuario u WHERE u.id = :id")
+    , @NamedQuery(name = "Usuario.findBySenha", query = "SELECT u FROM Usuario u WHERE u.senha = :senha")
+    , @NamedQuery(name = "Usuario.findByDatadeultimoacesso", query = "SELECT u FROM Usuario u WHERE u.datadeultimoacesso = :datadeultimoacesso")})
+public class Usuario implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 20)
     @Column(name = "id")
-    private Integer id;
+    private String id;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 80)
-    @Column(name = "titulo")
-    private String titulo;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "datadereferencia")
+    @Size(min = 1, max = 100)
+    @Column(name = "senha")
+    private String senha;
+    @Column(name = "datadeultimoacesso")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date datadereferencia;
-    @Lob
-    @Column(name = "documentoempdf")
-    private Byte[] documentoempdf;
+    private Date datadeultimoacesso;
     @JoinColumn(name = "membro_id", referencedColumnName = "id")
     @ManyToOne
     private Membro membroId;
+    @JoinColumn(name = "situacao_id", referencedColumnName = "id")
+    @ManyToOne
+    private Situacao situacaoId;
 
-    public Facilitacao() {
+    public Usuario() {
     }
 
-    public Facilitacao(Integer id) {
+    public Usuario(String id) {
         this.id = id;
     }
 
-    public Facilitacao(Integer id, String titulo, Date datadereferencia) {
+    public Usuario(String id, String senha) {
         this.id = id;
-        this.titulo = titulo;
-        this.datadereferencia = datadereferencia;
+        this.senha = senha;
     }
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public String getTitulo() {
-        return titulo;
+    public String getSenha() {
+        return senha;
     }
 
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
+    public void setSenha(String senha) {
+        this.senha = senha;
     }
 
-    public Date getDatadereferencia() {
-        return datadereferencia;
+    public Date getDatadeultimoacesso() {
+        return datadeultimoacesso;
     }
 
-    public void setDatadereferencia(Date datadereferencia) {
-        this.datadereferencia = datadereferencia;
-    }
-
-    public Byte[] getDocumentoempdf() {
-        return documentoempdf;
-    }
-
-    public void setDocumentoempdf(Byte[] documentoempdf) {
-        this.documentoempdf = documentoempdf;
+    public void setDatadeultimoacesso(Date datadeultimoacesso) {
+        this.datadeultimoacesso = datadeultimoacesso;
     }
 
     public Membro getMembroId() {
@@ -113,6 +100,14 @@ public class Facilitacao implements Serializable {
 
     public void setMembroId(Membro membroId) {
         this.membroId = membroId;
+    }
+
+    public Situacao getSituacaoId() {
+        return situacaoId;
+    }
+
+    public void setSituacaoId(Situacao situacaoId) {
+        this.situacaoId = situacaoId;
     }
 
     @Override
@@ -125,10 +120,10 @@ public class Facilitacao implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Facilitacao)) {
+        if (!(object instanceof Usuario)) {
             return false;
         }
-        Facilitacao other = (Facilitacao) object;
+        Usuario other = (Usuario) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -137,7 +132,7 @@ public class Facilitacao implements Serializable {
 
     @Override
     public String toString() {
-        return "br.com.batistaserradinho.swagger.model.Facilitacao[ id=" + id + " ]";
+        return "br.com.batistaserradinho.swagger.model.Usuario[ id=" + id + " ]";
     }
     
 }

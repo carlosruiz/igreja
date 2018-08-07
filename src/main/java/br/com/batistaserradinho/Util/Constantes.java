@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.com.batistaserradinho.EnvelopeJson;
+package br.com.batistaserradinho.Util;
 
 /**
  *
  * @author cruiz
  */
-public class GenericEnvelopeJson {
-    
+public class Constantes {
+    public final static int PRAZO_DE_EXPIRACAO_DO_TOKEN_EM_MILISEGUNDOS = 15 * 60 * 1000; 
 }

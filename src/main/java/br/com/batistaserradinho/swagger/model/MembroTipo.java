@@ -17,7 +17,6 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -25,11 +24,10 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Carlos
+ * @author cruiz
  */
 @Entity
-@Table(name = "membro_tipo", catalog = "igreja", schema = "igreja", uniqueConstraints = {
-    @UniqueConstraint(columnNames = {"descricao"})})
+@Table(catalog = "igreja", schema = "igreja", name = "membro_tipo")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "MembroTipo.findAll", query = "SELECT m FROM MembroTipo m")
@@ -41,12 +39,12 @@ public class MembroTipo implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(nullable = false)
+    @Column(name = "id")
     private Long id;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 30)
-    @Column(nullable = false, length = 30)
+    @Column(name = "descricao")
     private String descricao;
     @OneToMany(mappedBy = "membroTipoId")
     private Collection<Membro> membroCollection;

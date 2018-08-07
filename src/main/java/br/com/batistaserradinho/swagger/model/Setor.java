@@ -26,10 +26,10 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Carlos
+ * @author cruiz
  */
 @Entity
-@Table(catalog = "igreja", schema = "igreja")
+@Table(catalog = "igreja", schema = "igreja", name = "setor")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Setor.findAll", query = "SELECT s FROM Setor s")
@@ -42,17 +42,17 @@ public class Setor implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(nullable = false)
+    @Column(name = "id")
     private Integer id;
     @Size(max = 100)
-    @Column(length = 100)
+    @Column(name = "nome")
     private String nome;
     @Column(name = "situacao_id")
     private Integer situacaoId;
     @JoinColumn(name = "lider", referencedColumnName = "id")
     @ManyToOne
     private Membro lider;
-    @JoinColumn(name = "id", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
+    @JoinColumn(name = "id", referencedColumnName = "id", insertable = false, updatable = false)
     @OneToOne(optional = false)
     private Situacao situacao;
     @OneToMany(mappedBy = "setorId")

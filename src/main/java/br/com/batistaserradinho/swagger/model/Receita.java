@@ -28,10 +28,10 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Carlos
+ * @author cruiz
  */
 @Entity
-@Table(catalog = "igreja", schema = "igreja")
+@Table(catalog = "igreja", schema = "igreja", name = "receita")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Receita.findAll", query = "SELECT r FROM Receita r")
@@ -46,26 +46,26 @@ public class Receita implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(nullable = false)
+    @Column(name = "id")
     private Integer id;
     @Size(max = 100)
-    @Column(length = 100)
+    @Column(name = "nome")
     private String nome;
     @Size(max = 2147483647)
-    @Column(length = 2147483647)
+    @Column(name = "observacao")
     private String observacao;
     @Size(max = 100)
-    @Column(length = 100)
+    @Column(name = "imagem")
     private String imagem;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Basic(optional = false)
     @NotNull
-    @Column(nullable = false, precision = 10, scale = 2)
+    @Column(name = "valortotal")
     private BigDecimal valortotal;
-    @JoinColumn(name = "entrada_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "entrada_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Entrada entradaId;
-    @JoinColumn(name = "especie_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "especie_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Especie especieId;
     @JoinColumn(name = "membro_id", referencedColumnName = "id")

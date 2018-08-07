@@ -5,7 +5,6 @@
  */
 package br.com.batistaserradinho.swagger.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
@@ -30,10 +29,10 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Carlos
+ * @author cruiz
  */
 @Entity
-@Table(catalog = "igreja", schema = "igreja")
+@Table(catalog = "igreja", schema = "igreja", name = "evento")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Evento.findAll", query = "SELECT e FROM Evento e")
@@ -48,26 +47,26 @@ public class Evento implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(nullable = false)
+    @Column(name = "id")
     private Integer id;
     @Size(max = 100)
-    @Column(length = 100)
+    @Column(name = "nome")
     private String nome;
+    @Column(name = "datadeinicio")
     @Temporal(TemporalType.TIMESTAMP)
     private Date datadeinicio;
+    @Column(name = "datadetermino")
     @Temporal(TemporalType.TIMESTAMP)
     private Date datadetermino;
     @Size(max = 256)
-    @Column(length = 256)
+    @Column(name = "descricao")
     private String descricao;
-    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "eventoId")
     private Collection<Inscricao> inscricaoCollection;
-    @JsonIgnore
     @JoinColumn(name = "membro_id", referencedColumnName = "id")
     @ManyToOne
     private Membro membroId;
-    @JoinColumn(name = "situacao_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "situacao_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Situacao situacaoId;
 

@@ -13,7 +13,6 @@ import javax.ws.rs.Path;
 public class EventoEndpoint extends GenericEndpoint {
    
     public EventoEndpoint() {
-        super(new Evento(), "eventos");
+        super(Evento.class, "eventos");
     }  
-
 }

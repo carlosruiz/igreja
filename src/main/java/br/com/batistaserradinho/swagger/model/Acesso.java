@@ -21,10 +21,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Carlos
+ * @author cruiz
  */
 @Entity
-@Table(catalog = "igreja", schema = "igreja")
+@Table(catalog = "igreja", schema = "igreja", name = "acesso")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Acesso.findAll", query = "SELECT a FROM Acesso a")
@@ -37,17 +37,17 @@ public class Acesso implements Serializable {
     @Id
     @Basic(optional = false)
     @NotNull
-    @Column(nullable = false)
+    @Column(name = "id")
     private Integer id;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
-    @Column(nullable = false, length = 100)
+    @Column(name = "token")
     private String token;
     @Size(max = 100)
-    @Column(length = 100)
+    @Column(name = "descricao")
     private String descricao;
-    @JoinColumn(name = "cargo_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "cargo_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Cargo cargoId;
 

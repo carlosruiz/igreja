@@ -27,10 +27,10 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Carlos
+ * @author cruiz
  */
 @Entity
-@Table(catalog = "igreja", schema = "igreja")
+@Table(catalog = "igreja", schema = "igreja", name = "cargo")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Cargo.findAll", query = "SELECT c FROM Cargo c")
@@ -42,21 +42,21 @@ public class Cargo implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(nullable = false)
+    @Column(name = "id")
     private Integer id;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 60)
-    @Column(nullable = false, length = 60)
+    @Column(name = "nome")
     private String nome;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "cargoId")
     private Collection<Acesso> acessoCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "cargoId")
     private Collection<MembroCargo> membroCargoCollection;
-    @JoinColumn(name = "ministerio_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "ministerio_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Ministerio ministerioId;
-    @JoinColumn(name = "situacao_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "situacao_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Situacao situacaoId;
 

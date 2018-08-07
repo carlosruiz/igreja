@@ -1,6 +1,6 @@
 package br.com.batistaserradinho.swagger.rest;
 
-import br.com.batistaserradinho.EnvelopeJson.GenericEnvelopeJson;
+import br.com.batistaserradinho.EnvelopeJson.ListGenericEnvelopeJson;
 import br.com.batistaserradinho.swagger.service.EntityNotFoundException;
 import br.com.batistaserradinho.swagger.service.CrudService;
 import com.wordnik.swagger.annotations.ApiOperation;
@@ -26,12 +26,12 @@ import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.core.UriBuilder;
 
 public class GenericEndpoint {
-    Object instancia;
-    String rota;
+    private final Class<?> clazz;
+    private final String rote;
     
-    public GenericEndpoint(Object instancia, String rota){
-        this.instancia = instancia;
-        this.rota = rota;
+    public GenericEndpoint(Class<?> clazz, String rota){
+        this.clazz = clazz;
+        this.rote = rota;
     }
 
     private final CrudService crudService = new CrudService();
@@ -42,12 +42,12 @@ public class GenericEndpoint {
      */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @ApiOperation(value = "Retorna todos os registros", notes = "Retorna a lista completa de registros inseridos na aplicação", response = GenericEnvelopeJson.class)
+    @ApiOperation(value = "Retorna todos os registros", notes = "Retorna a lista completa de registros inseridos na aplicação", response = ListGenericEnvelopeJson.class)
     @ApiResponses(value = {
-        @ApiResponse(code = 200, message = "Consulta Realizada com sucesso", response = GenericEnvelopeJson.class)
+        @ApiResponse(code = 200, message = "Consulta Realizada com sucesso", response = ListGenericEnvelopeJson.class)
         , @ApiResponse(code = 500, message = "Erro interno no servidor")})
     public Response gets() throws IOException {
-        List<Object> generic = crudService.obterTodos(instancia.getClass().getName());
+        List<Object> generic = crudService.obterTodos(clazz.getName());
         return Response.ok(generic).build();
     }
 
@@ -58,13 +58,14 @@ public class GenericEndpoint {
     @GET
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    @ApiOperation(value = "Retorna o registro pelo Codigo", notes = "Retorna o registro inserido na aplicação pelo codigo", response = GenericEnvelopeJson.class)
-    @ApiResponses(value = {@ApiResponse(code = 200, message = "Consulta Realizada com sucesso", response = GenericEnvelopeJson.class)
+    @ApiOperation(value = "Retorna o registro pelo Codigo", notes = "Retorna o registro inserido na aplicação pelo codigo", response = Object.class)
+    @ApiResponses(value = {@ApiResponse(code = 200, message = "Consulta Realizada com sucesso", response = Object.class)
                           , @ApiResponse(code = 500, message = "Erro interno no servidor")})
     public Response get(@ApiParam(name = "id", value = "Codigo", required = true) 
-                                 @PathParam("id") int id) throws NoSuchMethodException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchFieldException {
-        Object registro = new Object();
-        //registro.getClass().getMethod("setId",id);
+                                 @PathParam("id") int id) throws NoSuchMethodException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchFieldException, ClassNotFoundException, InstantiationException {
+
+        Object registro = clazz.newInstance();
+        registro.getClass().getMethod("setId", Integer.class).invoke(registro, id);
         Object resultado = crudService.obter(registro);
         return Response.ok(resultado).build();
     }
@@ -83,7 +84,7 @@ public class GenericEndpoint {
     public Response create(@ApiParam(name = "registro", required = true) Object registro) throws Exception {
         try {
             Object novoRegistro = crudService.salvar(registro);
-            return Response.status(Status.CREATED).entity(novoRegistro).location(getLocation(novoRegistro, rota)).links(getUserLinks(novoRegistro, rota)).build();
+            return Response.status(Status.CREATED).entity(novoRegistro).location(getLocation(novoRegistro, rote)).links(getUserLinks(novoRegistro, rote)).build();
         } catch (IllegalArgumentException e) {
             return Response.status(Status.NOT_ACCEPTABLE).entity(e.getMessage()).build();
         }
@@ -102,7 +103,7 @@ public class GenericEndpoint {
     public Response update(@ApiParam(name = "registro", required = true) Object registro) throws Exception {
         try {
             Object registroAtualizado = crudService.editar(registro);
-            return Response.status(Status.OK).entity(registroAtualizado).location(getLocation(registroAtualizado, rota)).links(getUserLinks(registroAtualizado, rota)).build();
+            return Response.status(Status.OK).entity(registroAtualizado).location(getLocation(registroAtualizado, rote)).links(getUserLinks(registroAtualizado, rote)).build();
         } catch (EntityNotFoundException e) {
             return Response.status(Status.NOT_FOUND).entity("Não existe").build();
         } catch (IOException e) {
@@ -120,7 +121,7 @@ public class GenericEndpoint {
     @ApiResponses(value = { @ApiResponse(code = 200, message = "Registro Excluido com sucesso")
                           , @ApiResponse(code = 404, message = "Registro não existe")
                           , @ApiResponse(code = 500, message = "Erro interno no Servicor")})
-    public Response deleteInscricao(@ApiParam("codigo") @PathParam("id") int id) throws Exception {
+    public Response delete(@ApiParam("codigo") @PathParam("id") int id) throws Exception {
         crudService.removerPorId(id);
         return Response.status(Status.OK).entity("Excluido com sucesso!").build();
     }

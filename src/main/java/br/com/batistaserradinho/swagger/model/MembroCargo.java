@@ -23,10 +23,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Carlos
+ * @author cruiz
  */
 @Entity
-@Table(name = "membro_cargo", catalog = "igreja", schema = "igreja")
+@Table(catalog = "igreja", schema = "igreja", name = "membro_cargo")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "MembroCargo.findAll", query = "SELECT m FROM MembroCargo m")
@@ -39,22 +39,23 @@ public class MembroCargo implements Serializable {
     @Id
     @Basic(optional = false)
     @NotNull
-    @Column(nullable = false)
+    @Column(name = "id")
     private Integer id;
     @Basic(optional = false)
     @NotNull
-    @Column(nullable = false)
+    @Column(name = "datadeentrada")
     @Temporal(TemporalType.DATE)
     private Date datadeentrada;
+    @Column(name = "datadesaida")
     @Temporal(TemporalType.DATE)
     private Date datadesaida;
-    @JoinColumn(name = "cargo_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "cargo_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Cargo cargoId;
-    @JoinColumn(name = "membro_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "membro_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Membro membroId;
-    @JoinColumn(name = "situacao_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "situacao_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Situacao situacaoId;
 

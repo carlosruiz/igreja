@@ -28,10 +28,10 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Carlos
+ * @author cruiz
  */
 @Entity
-@Table(catalog = "igreja", schema = "igreja")
+@Table(catalog = "igreja", schema = "igreja", name = "celula")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Celula.findAll", query = "SELECT c FROM Celula c")
@@ -46,19 +46,20 @@ public class Celula implements Serializable {
     @Id
     @Basic(optional = false)
     @NotNull
-    @Column(nullable = false)
+    @Column(name = "id")
     private Integer id;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
-    @Column(nullable = false, length = 100)
+    @Column(name = "nome")
     private String nome;
     @Size(max = 256)
-    @Column(length = 256)
+    @Column(name = "endereco")
     private String endereco;
     @Size(max = 100)
-    @Column(length = 100)
+    @Column(name = "diadereuniao")
     private String diadereuniao;
+    @Column(name = "horadereuniao")
     @Temporal(TemporalType.TIME)
     private Date horadereuniao;
     @JoinColumn(name = "setor_id", referencedColumnName = "id")

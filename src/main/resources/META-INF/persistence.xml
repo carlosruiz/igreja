@@ -2,44 +2,33 @@
 <persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
   <persistence-unit name="IgrejaPU" transaction-type="RESOURCE_LOCAL">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
-    <class>br.com.batistaserradinho.swagger.model.PrestacaoDeConta</class>
-    <class>br.com.batistaserradinho.swagger.model.Inscricao</class>
-    <class>br.com.batistaserradinho.swagger.model.Setor</class>
-    <class>br.com.batistaserradinho.swagger.model.CriancasPresentes</class>
     <class>br.com.batistaserradinho.swagger.model.Acesso</class>
-    <class>br.com.batistaserradinho.swagger.model.MembroCargo</class>
-    <class>br.com.batistaserradinho.swagger.model.ItemDaReceita</class>
-    <class>br.com.batistaserradinho.swagger.model.Situacao</class>
-    <class>br.com.batistaserradinho.swagger.model.Receita</class>
-    <class>br.com.batistaserradinho.swagger.model.RelatorioCelula</class>
-    <class>br.com.batistaserradinho.swagger.model.Evento</class>
-    <class>br.com.batistaserradinho.swagger.model.MembroCelula</class>
-    <class>br.com.batistaserradinho.swagger.model.Facilitacao</class>
-    <class>br.com.batistaserradinho.swagger.model.TipoDaReceita</class>
-    <class>br.com.batistaserradinho.swagger.model.Entrada</class>
-    <class>br.com.batistaserradinho.swagger.model.Celula</class>
-    <class>br.com.batistaserradinho.swagger.model.TipoDeMembro</class>
-    <class>br.com.batistaserradinho.swagger.model.Membro</class>
-    <class>br.com.batistaserradinho.swagger.model.Especie</class>
-    <class>br.com.batistaserradinho.swagger.model.RelatoDaVisita</class>
     <class>br.com.batistaserradinho.swagger.model.Cargo</class>
-    <class>br.com.batistaserradinho.swagger.model.TipoDeDespesa</class>
-    <class>br.com.batistaserradinho.swagger.model.Ministerio</class>
-    <class>br.com.batistaserradinho.swagger.model.Despesa</class>
-    <class>br.com.batistaserradinho.swagger.model.FormaDeEntrada</class>
-    <class>br.com.batistaserradinho.swagger.model.Acesso_1</class>
-    <class>br.com.batistaserradinho.swagger.model.Cargo_1</class>
-    <class>br.com.batistaserradinho.swagger.model.Ministerio_1</class>
-    <class>br.com.batistaserradinho.swagger.model.Situacao_1</class>
-    <class>br.com.batistaserradinho.swagger.model.ReceitaTipo</class>
-    <class>br.com.batistaserradinho.swagger.model.MembroTipo</class>
+    <class>br.com.batistaserradinho.swagger.model.Celula</class>
     <class>br.com.batistaserradinho.swagger.model.CelulaMembro</class>
-    <class>br.com.batistaserradinho.swagger.model.ReceitaItem</class>
     <class>br.com.batistaserradinho.swagger.model.CelulaRelatorio</class>
+    <class>br.com.batistaserradinho.swagger.model.Despesa</class>
     <class>br.com.batistaserradinho.swagger.model.DespesaTipo</class>
+    <class>br.com.batistaserradinho.swagger.model.Entrada</class>
+    <class>br.com.batistaserradinho.swagger.model.Especie</class>
+    <class>br.com.batistaserradinho.swagger.model.Evento</class>
+    <class>br.com.batistaserradinho.swagger.model.Facilitacao</class>
+    <class>br.com.batistaserradinho.swagger.model.Inscricao</class>
     <class>br.com.batistaserradinho.swagger.model.LeituraDiaria</class>
+    <class>br.com.batistaserradinho.swagger.model.Membro</class>
+    <class>br.com.batistaserradinho.swagger.model.MembroCargo</class>
     <class>br.com.batistaserradinho.swagger.model.MembroFormaDeEntrada</class>
+    <class>br.com.batistaserradinho.swagger.model.MembroTipo</class>
+    <class>br.com.batistaserradinho.swagger.model.Ministerio</class>
+    <class>br.com.batistaserradinho.swagger.model.PrestacaoDeConta</class>
+    <class>br.com.batistaserradinho.swagger.model.Receita</class>
+    <class>br.com.batistaserradinho.swagger.model.ReceitaItem</class>
+    <class>br.com.batistaserradinho.swagger.model.ReceitaTipo</class>
+    <class>br.com.batistaserradinho.swagger.model.RelatoDaVisita</class>
     <class>br.com.batistaserradinho.swagger.model.RelatorioCriancasPresentes</class>
+    <class>br.com.batistaserradinho.swagger.model.Setor</class>
+    <class>br.com.batistaserradinho.swagger.model.Situacao</class>
+    <class>br.com.batistaserradinho.swagger.model.Usuario</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/igreja"/>

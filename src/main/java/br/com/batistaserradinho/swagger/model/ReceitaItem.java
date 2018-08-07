@@ -23,10 +23,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Carlos
+ * @author cruiz
  */
 @Entity
-@Table(name = "receita_item", catalog = "igreja", schema = "igreja")
+@Table(catalog = "igreja", schema = "igreja", name = "receita_item")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "ReceitaItem.findAll", query = "SELECT r FROM ReceitaItem r")
@@ -38,17 +38,17 @@ public class ReceitaItem implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(nullable = false)
+    @Column(name = "id")
     private Integer id;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Basic(optional = false)
     @NotNull
-    @Column(nullable = false, precision = 10, scale = 2)
+    @Column(name = "valor")
     private BigDecimal valor;
-    @JoinColumn(name = "receita_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "receita_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Receita receitaId;
-    @JoinColumn(name = "receita_tipo_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "receita_tipo_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private ReceitaTipo receitaTipoId;
 
