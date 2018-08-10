@@ -6,6 +6,7 @@
 package br.com.batistaserradinho.EnvelopeJson;
 
 import br.com.batistaserradinho.swagger.model.Inscricao;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -14,8 +15,14 @@ import java.util.List;
  */
 public class InscricaoEnvelopeJson {
 
-    public class ListaDeInscricoes{
-       public List<Inscricao> inscricao;
+    public static class Inscricoes{
+        private List<Inscricao> list = new ArrayList();
+        private int count = 0;
+
+        public void addInscricao(Inscricao i){
+            list.add(i);
+            count = list.size();
+        }
     }
-    
 }
+

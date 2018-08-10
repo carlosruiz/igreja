@@ -1,5 +1,6 @@
 package br.com.batistaserradinho.swagger.service;
 
+import br.com.batistaserradinho.swagger.model.Situacao;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -39,6 +40,7 @@ public class CrudService {
 
     public Object salvar(Object instancia) throws Exception {
         entityManager = getEntityManager();
+              
         try {
 
             entityManager.getTransaction().begin();

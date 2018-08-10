@@ -5,6 +5,7 @@
  */
 package br.com.batistaserradinho.swagger.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
@@ -47,6 +48,7 @@ public class Usuario implements Serializable {
     @NotNull
     @Size(min = 1, max = 100)
     @Column(name = "senha")
+    @JsonIgnore
     private String senha;
     @Column(name = "datadeultimoacesso")
     @Temporal(TemporalType.TIMESTAMP)
