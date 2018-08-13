@@ -5,6 +5,7 @@
  */
 package br.com.batistaserradinho.swagger.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
@@ -45,30 +46,43 @@ public class Situacao implements Serializable {
     @Size(max = 50)
     @Column(name = "nome")
     private String nome;
+    @JsonIgnore
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "situacao")
     private Setor setor;
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "situacaoId")
     private Collection<Despesa> despesaCollection;
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "situacaoId")
     private Collection<MembroCargo> membroCargoCollection;
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "situacaoId")
     private Collection<Especie> especieCollection;
+    @JsonIgnore
     @OneToMany(mappedBy = "situacaoId")
     private Collection<Celula> celulaCollection;
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "situacaoId")
     private Collection<Evento> eventoCollection;
+    @JsonIgnore
     @OneToMany(mappedBy = "situacaoId")
     private Collection<CelulaMembro> celulaMembroCollection;
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "situacaoId")
     private Collection<Cargo> cargoCollection;
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "situacaoId")
     private Collection<Ministerio> ministerioCollection;
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "situacaoId")
     private Collection<Membro> membroCollection;
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "situacaoId")
     private Collection<ReceitaTipo> receitaTipoCollection;
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "situacaoId")
     private Collection<Entrada> entradaCollection;
+    @JsonIgnore
     @OneToMany(mappedBy = "situacaoId")
     private Collection<Usuario> usuarioCollection;
 

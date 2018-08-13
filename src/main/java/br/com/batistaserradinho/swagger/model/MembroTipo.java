@@ -5,6 +5,7 @@
  */
 package br.com.batistaserradinho.swagger.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
@@ -46,6 +47,7 @@ public class MembroTipo implements Serializable {
     @Size(min = 1, max = 30)
     @Column(name = "descricao")
     private String descricao;
+    @JsonIgnore
     @OneToMany(mappedBy = "membroTipoId")
     private Collection<Membro> membroCollection;
 

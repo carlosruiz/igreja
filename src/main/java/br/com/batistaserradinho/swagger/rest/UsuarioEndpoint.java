@@ -76,24 +76,32 @@ public class UsuarioEndpoint {
                          , @ApiResponse(code = 500, message = "Erro interno no servidor")})
     public Response createCadastro(@ApiParam(name = "cadastro", required = true) Cadastro cadastro) throws Exception {
         try {
-            Membro membro = (Membro) crudService.salvar(CadastroMapper.retornarMembro(cadastro));
+            Membro membro = CadastroMapper.retornarMembro(cadastro);
+            Usuario usuario = (Usuario) crudService.obter(membro.getUsuarioCollection().iterator().next());
             
-            return Response.status(Status.CREATED).entity(membro).location(getLocation(membro)).links(getUserLinks(membro)).build();
+            if(usuario != null)
+                 return Response.status(Status.CONFLICT).entity("Usuario "+cadastro.getLogin() + " já existe!").build();
+                
+            membro = (Membro) crudService.salvar(membro);
+            
+            return Response.status(Status.CREATED).entity(membro)
+                    .location(getLocation(membro.getUsuarioCollection().iterator().next()))
+                    .links(getUserLinks(membro.getUsuarioCollection().iterator().next())).build();
         } catch (IllegalArgumentException e) {
             return Response.status(Status.NOT_ACCEPTABLE).entity(e.getMessage()).build();
         }
     }
     
-        private Link[] getUserLinks(Membro membro) throws NoSuchMethodException {
+        private Link[] getUserLinks(Usuario usuario) throws NoSuchMethodException {
         final Link[] links = new Link[2];
 
-        links[0] = Link.fromUri("usuarios/{usuarioId}").rel("update").type(MediaType.APPLICATION_XML).build(membro.getId());
+        links[0] = Link.fromUri("usuarios/{usuarioId}").rel("update").type(MediaType.APPLICATION_XML).build(usuario.getId());
         links[1] = Link.fromUri("usuarios").rel("listAll").type(MediaType.APPLICATION_XML).build();
 
         return links;
     }
 
-    private URI getLocation(final Membro membro) throws NoSuchMethodException {
-        return UriBuilder.fromUri("usuarios/{usuarioId}").build(membro.getId());
+    private URI getLocation(final Usuario usuario) throws NoSuchMethodException {
+        return UriBuilder.fromUri("usuarios/{usuarioId}").build(usuario.getId());
     }
 }

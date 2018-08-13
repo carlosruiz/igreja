@@ -5,6 +5,7 @@
  */
 package br.com.batistaserradinho.swagger.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
@@ -126,20 +127,28 @@ public class Membro implements Serializable {
     @Size(max = 100)
     @Column(name = "motivocancelamento")
     private String motivocancelamento;
+    @JsonIgnore
     @ManyToMany(mappedBy = "membroCollection")
     private Collection<Entrada> entradaCollection;
+    @JsonIgnore
     @OneToMany(mappedBy = "lider")
     private Collection<Setor> setorCollection;
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "membroId")
     private Collection<Despesa> despesaCollection;
+    @JsonIgnore
     @OneToMany(mappedBy = "membroId")
     private Collection<Facilitacao> facilitacaoCollection;
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "membroId")
     private Collection<MembroCargo> membroCargoCollection;
+    @JsonIgnore
     @OneToMany(mappedBy = "membroId")
     private Collection<Evento> eventoCollection;
-    @OneToMany(mappedBy = "membroId")
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "membroId")
     private Collection<CelulaMembro> celulaMembroCollection;
+    @JsonIgnore
     @OneToMany(mappedBy = "membroId")
     private Collection<Receita> receitaCollection;
     @JoinColumn(name = "membro_formadeentrada_id", referencedColumnName = "id")
@@ -151,7 +160,8 @@ public class Membro implements Serializable {
     @JoinColumn(name = "situacao_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Situacao situacaoId;
-    @OneToMany(mappedBy = "membroId")
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "membroId")
     private Collection<Usuario> usuarioCollection;
 
     public Membro() {

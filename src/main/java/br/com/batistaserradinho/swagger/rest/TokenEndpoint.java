@@ -46,16 +46,19 @@ public class TokenEndpoint {
                              @ApiParam(name = "senha", value = "senha do usuario", required = true) @QueryParam("senha") String senha) 
             throws NoSuchMethodException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchAlgorithmException{
       
+        String token;
+        TokenEnvelopeJson tokenEnvelope = new TokenEnvelopeJson();
         Usuario usuario = new Usuario();
         usuario.setId(login);
-        //usuario = (Usuario) crudService.obter(usuario);
-        //validarsenha do usuario
-        usuario.setSenha(Criptografia.criptografar(senha));
-        String token = new TokenBusiness().construirToken(usuario);
+        usuario = (Usuario) crudService.obter(usuario);
         
-        TokenEnvelopeJson tokenEnvelope = new TokenEnvelopeJson();
-        tokenEnvelope.setMensagem("Token Gerado com Sucesso!");
-        tokenEnvelope.setToken(token);
+        if(usuario != null && usuario.getSenha().equals(Criptografia.criptografar(senha))){
+            token = new TokenBusiness().construirToken(usuario);           
+            tokenEnvelope.setMensagem("Token Gerado com Sucesso!");
+            tokenEnvelope.setToken(token);
+        }
+        else
+            tokenEnvelope.setMensagem("Login ou Senha invalidos!");
         
         
         return Response.ok(tokenEnvelope).build();

@@ -6,6 +6,7 @@
 package br.com.batistaserradinho.swagger.rest;
 
 import br.com.batistaserradinho.EnvelopeJson.CadastroEnvelopeJson.Cadastro;
+import br.com.batistaserradinho.Util.Criptografia;
 import br.com.batistaserradinho.swagger.model.Membro;
 import br.com.batistaserradinho.swagger.model.Situacao;
 import br.com.batistaserradinho.swagger.model.Usuario;
@@ -24,7 +25,7 @@ public class CadastroMapper {
 
         Usuario usuario = new Usuario();
         usuario.setId(cadastro.getLogin());
-        usuario.setSenha(cadastro.getSenha());
+        usuario.setSenha(Criptografia.criptografar(cadastro.getSenha()));
         usuario.setSituacaoId(situacao);
                 
         Collection usuarios = new HashSet();
