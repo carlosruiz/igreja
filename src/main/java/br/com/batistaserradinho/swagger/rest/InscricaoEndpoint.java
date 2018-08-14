@@ -27,8 +27,8 @@ import javax.ws.rs.core.Link;
 import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.core.UriBuilder;
 
-@Api(value = "Inscricao", description = "Endpoint para gerenciamento de inscrição")
-@Path("/inscricoes")
+//@Api(value = "Inscricao", description = "Endpoint para gerenciamento de inscrição")
+//@Path("/inscricoes")
 public class InscricaoEndpoint {
 
     private final CrudService crudService = new CrudService();

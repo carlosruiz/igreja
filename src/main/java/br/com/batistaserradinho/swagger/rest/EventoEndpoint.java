@@ -8,8 +8,8 @@ import javax.ws.rs.Path;
  * @author Carlos
  */
 
-@Api(value = "Evento", description = "Endpoint para gerenciamento de Eventos")
-@Path("/eventos")
+//@Api(value = "Evento", description = "Endpoint para gerenciamento de Eventos")
+//@Path("/eventos")
 public class EventoEndpoint extends GenericEndpoint {
    
     public EventoEndpoint() {

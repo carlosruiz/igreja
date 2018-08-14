@@ -24,7 +24,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author cruiz
  */
 @Entity
-@Table(catalog = "igreja", schema = "igreja", name = "acesso")
+@Table( schema = "igreja", name = "acesso")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Acesso.findAll", query = "SELECT a FROM Acesso a")
@@ -41,9 +41,6 @@ public class Acesso implements Serializable {
     private Integer id;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 100)
-    @Column(name = "token")
-    private String token;
     @Size(max = 100)
     @Column(name = "descricao")
     private String descricao;
@@ -58,25 +55,12 @@ public class Acesso implements Serializable {
         this.id = id;
     }
 
-    public Acesso(Integer id, String token) {
-        this.id = id;
-        this.token = token;
-    }
-
     public Integer getId() {
         return id;
     }
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public String getToken() {
-        return token;
-    }
-
-    public void setToken(String token) {
-        this.token = token;
     }
 
     public String getDescricao() {

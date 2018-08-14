@@ -5,6 +5,7 @@
  */
 package br.com.batistaserradinho.swagger.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
@@ -31,7 +32,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author cruiz
  */
 @Entity
-@Table(catalog = "igreja", schema = "igreja", name = "celula")
+@Table( schema = "igreja", name = "celula")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Celula.findAll", query = "SELECT c FROM Celula c")
@@ -64,13 +65,16 @@ public class Celula implements Serializable {
     private Date horadereuniao;
     @JoinColumn(name = "setor_id", referencedColumnName = "id")
     @ManyToOne
+    @JsonIgnore
     private Setor setorId;
     @JoinColumn(name = "situacao_id", referencedColumnName = "id")
     @ManyToOne
     private Situacao situacaoId;
     @OneToMany(mappedBy = "celulaId")
+    @JsonIgnore
     private Collection<CelulaMembro> celulaMembroCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "celulaId")
+    @JsonIgnore
     private Collection<CelulaRelatorio> celulaRelatorioCollection;
 
     public Celula() {

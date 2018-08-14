@@ -27,7 +27,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author cruiz
  */
 @Entity
-@Table(catalog = "igreja", schema = "igreja", name = "celula_membro")
+@Table( schema = "igreja", name = "celula_membro")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "CelulaMembro.findAll", query = "SELECT c FROM CelulaMembro c")

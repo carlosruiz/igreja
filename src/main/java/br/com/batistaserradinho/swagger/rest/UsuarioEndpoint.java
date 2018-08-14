@@ -1,7 +1,11 @@
 package br.com.batistaserradinho.swagger.rest;
 
 import br.com.batistaserradinho.EnvelopeJson.CadastroEnvelopeJson.Cadastro;
+import br.com.batistaserradinho.business.ControleDeAcessoBusiness;
+import br.com.batistaserradinho.swagger.model.Celula;
+import br.com.batistaserradinho.swagger.model.CelulaMembro;
 import br.com.batistaserradinho.swagger.model.Membro;
+import br.com.batistaserradinho.swagger.model.Situacao;
 import br.com.batistaserradinho.swagger.model.Usuario;
 import br.com.batistaserradinho.swagger.service.CrudService;
 import com.wordnik.swagger.annotations.Api;
@@ -12,6 +16,8 @@ import com.wordnik.swagger.annotations.ApiResponses;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.net.URI;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -34,6 +40,8 @@ import javax.ws.rs.core.UriBuilder;
 public class UsuarioEndpoint {
     
     private final CrudService crudService = new CrudService();
+    ControleDeAcessoBusiness controleDeAcesso = new ControleDeAcessoBusiness();
+    
      /**
      * Retorna lista completa
      */
@@ -44,6 +52,9 @@ public class UsuarioEndpoint {
         @ApiResponse(code = 200, message = "Consulta Realizada com sucesso", response = Usuario.class)
         , @ApiResponse(code = 500, message = "Erro interno no servidor")})
     public Response getUsuarios() throws IOException {
+        String descricaoDeAcesso = controleDeAcesso.obterNomeDaClasse();
+
+      //  controleDeAcesso.verificarSeTokenPossuiAcesso(token, descricaoDeAcesso);
         List<Usuario> usuarios = crudService.obterTodos(Usuario.class.getName());
         return Response.ok(usuarios).build();
     }
@@ -79,9 +90,26 @@ public class UsuarioEndpoint {
             Membro membro = CadastroMapper.retornarMembro(cadastro);
             Usuario usuario = (Usuario) crudService.obter(membro.getUsuarioCollection().iterator().next());
             
+            Situacao situacao = new Situacao();
+            situacao.setId(1); //Ativo
+            
             if(usuario != null)
-                 return Response.status(Status.CONFLICT).entity("Usuario "+cadastro.getLogin() + " já existe!").build();
+                 return Response.status(Status.CONFLICT).entity("Usuario "+cadastro.getLogin()+" já existe!").type(MediaType.TEXT_PLAIN_TYPE).build();
+            
+            if(cadastro.getCelulaId() > 0){
+                Celula celula = new Celula();
+                CelulaMembro celulaMembro = new CelulaMembro();
+                celula.setId(cadastro.getCelulaId());
+                celula = (Celula) crudService.obter(celula);
                 
+                if(celula != null){
+                    celulaMembro.setCelulaId(celula);
+                    celulaMembro.setSituacaoId(situacao);
+                    Collection celulaMembros = new HashSet();
+                    celulaMembros.add(celulaMembro);
+                    membro.setCelulaMembroCollection(celulaMembros);                    
+                }          
+            }              
             membro = (Membro) crudService.salvar(membro);
             
             return Response.status(Status.CREATED).entity(membro)

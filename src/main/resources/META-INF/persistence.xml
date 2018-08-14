@@ -31,10 +31,10 @@
     <class>br.com.batistaserradinho.swagger.model.Usuario</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
-      <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/igreja"/>
-      <property name="javax.persistence.jdbc.user" value="admin_igreja"/>
+      <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/batista1_igreja_hom"/>
+      <property name="javax.persistence.jdbc.user" value="batista1_admin"/>
       <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
-      <property name="javax.persistence.jdbc.password" value="134200"/>
+      <property name="javax.persistence.jdbc.password" value="md@ibjs2018"/>
     </properties>
   </persistence-unit>
 </persistence>

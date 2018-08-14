@@ -20,6 +20,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 
 /**
  * @author Carlos
@@ -58,8 +59,7 @@ public class TokenEndpoint {
             tokenEnvelope.setToken(token);
         }
         else
-            tokenEnvelope.setMensagem("Login ou Senha invalidos!");
-        
+            return Response.status(Status.UNAUTHORIZED).entity("Usuario ou senha inválido!").type(MediaType.TEXT_PLAIN_TYPE).build();   
         
         return Response.ok(tokenEnvelope).build();
     }  
@@ -78,14 +78,13 @@ public class TokenEndpoint {
     public Response getToken(@ApiParam(name = "token", value = "informe o token", required = true) @QueryParam("token") String token) 
             throws UnsupportedEncodingException, ParseException, Exception{
       
-        boolean tokenEhValido = new TokenBusiness().validarToken(token);
-        String mensagem = tokenEhValido ? "Token é valido" : "Token Inválido";
+        Status statusDoToken = new TokenBusiness().validarToken(token);       
+        String mensagem = statusDoToken.equals(Status.UNAUTHORIZED) ? "Usuario ou senha inválido" : statusDoToken.equals(Status.BAD_REQUEST) ? "Token Expirado!" : "Token é Valido";
         
         TokenEnvelopeJson tokenEnvelope = new TokenEnvelopeJson();
         tokenEnvelope.setMensagem(mensagem);
         tokenEnvelope.setToken(token);      
         
-        return Response.ok(tokenEnvelope).build();
+        return Response.status(statusDoToken).entity(tokenEnvelope).build();
     }  
-
 }

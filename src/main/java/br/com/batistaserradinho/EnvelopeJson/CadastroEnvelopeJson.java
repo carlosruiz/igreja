@@ -24,13 +24,13 @@ public class CadastroEnvelopeJson {
         private String bairro;
         private String cidade;
         private String uf;
-        private String celulaId;
+        private Integer celulaId;
 
-        public String getCelulaId() {
+        public Integer getCelulaId() {
             return celulaId;
         }
 
-        public void setCelulaId(String celulaId) {
+        public void setCelulaId(Integer celulaId) {
             this.celulaId = celulaId;
         }
 

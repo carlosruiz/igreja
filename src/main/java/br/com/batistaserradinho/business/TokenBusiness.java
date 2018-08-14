@@ -11,6 +11,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 import org.apache.commons.codec.DecoderException;
 
 /**
@@ -33,7 +35,7 @@ public class TokenBusiness {
         return  Criptografia.stringToHex(chave);
     }
     
-    public boolean validarToken(String token) throws DecoderException, UnsupportedEncodingException, ParseException, Exception{
+    public Status validarToken(String token) throws DecoderException, UnsupportedEncodingException, ParseException, Exception{
         
         String tokenEmString = Criptografia.hexToString(token);
         
@@ -47,16 +49,16 @@ public class TokenBusiness {
         Date dataAtual = new Date();
         
         if(dataAtual.getTime() > dataDeExpiracao.getTime())
-            throw new Exception("Token expirado!");
+            return Status.BAD_REQUEST;
         
         Usuario usuario = new Usuario();
         usuario.setId(login);
         Usuario usr = (Usuario) new CrudService().obter(usuario);
         
         if(usr == null || !usr.getSenha().equals(senha))
-           throw new Exception("Usuario ou senha incorretos"); 
+           return Status.UNAUTHORIZED; 
                
-        return true;
+        return Status.OK;
     }
     
     public String obterLoginDeUmToken(String token) throws DecoderException, UnsupportedEncodingException{
