@@ -2,6 +2,7 @@ package br.com.batistaserradinho.swagger.rest;
 
 import br.com.batistaserradinho.EnvelopeJson.CadastroEnvelopeJson.Cadastro;
 import br.com.batistaserradinho.business.ControleDeAcessoBusiness;
+import br.com.batistaserradinho.business.TokenBusiness;
 import br.com.batistaserradinho.swagger.model.Celula;
 import br.com.batistaserradinho.swagger.model.CelulaMembro;
 import br.com.batistaserradinho.swagger.model.Membro;
@@ -14,8 +15,10 @@ import com.wordnik.swagger.annotations.ApiParam;
 import com.wordnik.swagger.annotations.ApiResponse;
 import com.wordnik.swagger.annotations.ApiResponses;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.InvocationTargetException;
 import java.net.URI;
+import java.text.ParseException;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
@@ -28,8 +31,10 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Link;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.ResponseBuilder;
 import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.core.UriBuilder;
+import org.apache.commons.codec.DecoderException;
 
 /**
  *
@@ -44,33 +49,47 @@ public class UsuarioEndpoint {
     
      /**
      * Retorna lista completa
+     * @param token
      */
     @GET
+    @Path("/{token}")
     @Produces(MediaType.APPLICATION_JSON)
     @ApiOperation(value = "Retorna todos os usuarios", notes = "Retorna a lista completa de usuarios ", response = Usuario.class)
     @ApiResponses(value = {
         @ApiResponse(code = 200, message = "Consulta Realizada com sucesso", response = Usuario.class)
         , @ApiResponse(code = 500, message = "Erro interno no servidor")})
-    public Response getUsuarios() throws IOException {
-        String descricaoDeAcesso = controleDeAcesso.obterNomeDaClasse();
+    public Response getUsuarios(@ApiParam(name = "token", value = "Token", required = true) 
+                                 @PathParam("token") String token) throws NoSuchMethodException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchFieldException, DecoderException, UnsupportedEncodingException, Exception {
 
-      //  controleDeAcesso.verificarSeTokenPossuiAcesso(token, descricaoDeAcesso);
+        String descricaoDeAcesso = controleDeAcesso.obterNomeDaClasse();
+        ResponseBuilder controle = controleDeAcesso.controlarAcesso(token, descricaoDeAcesso);
+        if(controle != null)
+            return controle.build();
+        
         List<Usuario> usuarios = crudService.obterTodos(Usuario.class.getName());
         return Response.ok(usuarios).build();
     }
     
-     /**
+     /**memoria
      * Retorna por id informado
+     * @param token
      * @param usuarioId
      */
     @GET
-    @Path("/{usuarioId}")
+    @Path("/{token}/{usuarioId}")
     @Produces(MediaType.APPLICATION_JSON)
     @ApiOperation(value = "Retorna o usuario pelo login", notes = "Retorna o usuario cadastrado pelo login", response = Usuario.class)
     @ApiResponses(value = {@ApiResponse(code = 200, message = "Consulta Realizada com sucesso", response = Usuario.class)
                           , @ApiResponse(code = 500, message = "Erro interno no servidor")})
-    public Response getUsuario(@ApiParam(name = "usuarioId", value = "Login", required = true) 
-                                 @PathParam("usuarioId") String usuarioId) throws NoSuchMethodException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchFieldException {
+    public Response getUsuario(@ApiParam(name = "usuarioId", value = "Login", required = true) @PathParam("usuarioId") String usuarioId, 
+                               @ApiParam(name = "token", value = "Token", required = true) @PathParam("token") String token) 
+            throws NoSuchMethodException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchFieldException, ParseException, Exception {
+        
+        String descricaoDeAcesso = controleDeAcesso.obterNomeDaClasse();
+        ResponseBuilder controle = controleDeAcesso.controlarAcesso(token, descricaoDeAcesso);
+        if(controle != null)
+            return controle.build();
+        
         Usuario usuario = new Usuario();
         usuario.setId(usuarioId);
         usuario = (Usuario) crudService.obter(usuario);

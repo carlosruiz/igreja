@@ -79,7 +79,8 @@ public class TokenEndpoint {
             throws UnsupportedEncodingException, ParseException, Exception{
       
         Status statusDoToken = new TokenBusiness().validarToken(token);       
-        String mensagem = statusDoToken.equals(Status.UNAUTHORIZED) ? "Usuario ou senha inválido" : statusDoToken.equals(Status.BAD_REQUEST) ? "Token Expirado!" : "Token é Valido";
+        String mensagem = statusDoToken.equals(Status.UNAUTHORIZED) ? "Usuario ou senha inválido" : statusDoToken.equals(Status.BAD_REQUEST) 
+                                                                    ? "Token Expirado!" : statusDoToken.equals(Status.NOT_ACCEPTABLE) ? "Token inválido ou ocorreu um erro!" : "Token é Valido";
         
         TokenEnvelopeJson tokenEnvelope = new TokenEnvelopeJson();
         tokenEnvelope.setMensagem(mensagem);

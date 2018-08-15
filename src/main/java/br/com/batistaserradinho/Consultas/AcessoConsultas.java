@@ -7,6 +7,7 @@ package br.com.batistaserradinho.Consultas;
 
 import br.com.batistaserradinho.swagger.model.Acesso;
 import br.com.batistaserradinho.swagger.service.CrudService;
+import java.util.List;
 import javax.persistence.EntityManager;
 
 /**
@@ -18,7 +19,11 @@ public class AcessoConsultas {
 
     public boolean existeAcesso(Acesso acesso) {
         EntityManager entityManager = crudService.getEntityManager();
-        return entityManager.createQuery("SELECT i FROM igreja.Acesso a where a.cargo_Id = " + acesso.getCargoId().getId() + 
-                                                        "and a.descricao = '"+acesso.getDescricao()+"'").getMaxResults() > 0 ;
+        List<Acesso> acessos =  entityManager.createQuery("SELECT a FROM "+Acesso.class.getName()+" a where a.descricao = '"+acesso.getDescricao()+"'").getResultList();
+        for(Acesso ac : acessos){
+            if(ac.getCargoId().getId().equals(acesso.getCargoId().getId()))
+                return true;
+        }
+        return false;
     }
 }

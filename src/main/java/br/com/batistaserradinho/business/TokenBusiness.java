@@ -35,8 +35,9 @@ public class TokenBusiness {
         return  Criptografia.stringToHex(chave);
     }
     
-    public Status validarToken(String token) throws DecoderException, UnsupportedEncodingException, ParseException, Exception{
+    public Status validarToken(String token){
         
+        try{
         String tokenEmString = Criptografia.hexToString(token);
         
         String prefixo = tokenEmString.substring(0, 6);
@@ -59,6 +60,9 @@ public class TokenBusiness {
            return Status.UNAUTHORIZED; 
                
         return Status.OK;
+        }catch(Exception e){
+            return Status.NOT_ACCEPTABLE;
+        }
     }
     
     public String obterLoginDeUmToken(String token) throws DecoderException, UnsupportedEncodingException{
