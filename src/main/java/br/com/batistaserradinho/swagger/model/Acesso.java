@@ -5,6 +5,7 @@
  */
 package br.com.batistaserradinho.swagger.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -45,6 +46,7 @@ public class Acesso implements Serializable {
     @Size(max = 100)
     @Column(name = "descricao")
     private String descricao;
+    @JsonIgnore
     @JoinColumn(name = "cargo_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Cargo cargoId;

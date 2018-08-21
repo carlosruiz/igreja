@@ -2,7 +2,6 @@ package br.com.batistaserradinho.swagger.rest;
 
 import br.com.batistaserradinho.EnvelopeJson.CadastroEnvelopeJson.Cadastro;
 import br.com.batistaserradinho.business.ControleDeAcessoBusiness;
-import br.com.batistaserradinho.business.TokenBusiness;
 import br.com.batistaserradinho.swagger.model.Celula;
 import br.com.batistaserradinho.swagger.model.CelulaMembro;
 import br.com.batistaserradinho.swagger.model.Membro;
@@ -14,7 +13,6 @@ import com.wordnik.swagger.annotations.ApiOperation;
 import com.wordnik.swagger.annotations.ApiParam;
 import com.wordnik.swagger.annotations.ApiResponse;
 import com.wordnik.swagger.annotations.ApiResponses;
-import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.InvocationTargetException;
 import java.net.URI;
@@ -70,7 +68,7 @@ public class UsuarioEndpoint {
         return Response.ok(usuarios).build();
     }
     
-     /**memoria
+     /**
      * Retorna por id informado
      * @param token
      * @param usuarioId
