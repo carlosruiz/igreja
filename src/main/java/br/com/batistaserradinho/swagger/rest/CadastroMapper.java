@@ -7,8 +7,6 @@ package br.com.batistaserradinho.swagger.rest;
 
 import br.com.batistaserradinho.EnvelopeJson.CadastroEnvelopeJson.Cadastro;
 import br.com.batistaserradinho.Util.Criptografia;
-import br.com.batistaserradinho.swagger.model.Celula;
-import br.com.batistaserradinho.swagger.model.CelulaMembro;
 import br.com.batistaserradinho.swagger.model.Membro;
 import br.com.batistaserradinho.swagger.model.Situacao;
 import br.com.batistaserradinho.swagger.model.Usuario;

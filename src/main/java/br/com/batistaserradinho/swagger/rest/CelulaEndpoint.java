@@ -5,7 +5,9 @@
  */
 package br.com.batistaserradinho.swagger.rest;
 
+import br.com.batistaserradinho.EnvelopeJson.CelulaMembroEnvelopeJson;
 import br.com.batistaserradinho.swagger.model.Celula;
+import br.com.batistaserradinho.swagger.model.CelulaMembro;
 import br.com.batistaserradinho.swagger.service.CrudService;
 import com.wordnik.swagger.annotations.Api;
 import com.wordnik.swagger.annotations.ApiOperation;
@@ -14,6 +16,7 @@ import com.wordnik.swagger.annotations.ApiResponse;
 import com.wordnik.swagger.annotations.ApiResponses;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -61,5 +64,35 @@ public class CelulaEndpoint {
         celula.setId(celulaId);
         celula = (Celula) crudService.obter(celula);
         return Response.ok(celula).build();
+    }
+    
+     /**
+     * Retorna por id informado
+     * @param celulaId
+    */
+    @GET
+    @Path("/{celulaId}/membros")
+    @Produces(MediaType.APPLICATION_JSON)
+    @ApiOperation(value = "Retorna as pessoas da Celula pesquisada", notes = "Retorna todas as pessoas (membro, freuqnetador assiduo e visitantes) da Celula", response = CelulaMembroEnvelopeJson.class)
+    @ApiResponses(value = {@ApiResponse(code = 200, message = "Consulta Realizada com sucesso", response = CelulaMembroEnvelopeJson.class)
+                          , @ApiResponse(code = 500, message = "Erro interno no servidor")})
+    public Response getMembrosCelula(@ApiParam(name = "celulaId", value = "Numero da Celula", required = true) 
+                                 @PathParam("celulaId") int celulaId) throws NoSuchMethodException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchFieldException {            
+        Celula celula = new Celula();
+        celula.setId(celulaId);
+        celula = (Celula) crudService.obter(celula);
+        
+        List<CelulaMembro> celulaMembros = new ArrayList();
+        for(CelulaMembro celulamembro : celula.getCelulaMembroCollection()){
+            CelulaMembroEnvelopeJson celulaMembroEnvelopeJson = new CelulaMembroEnvelopeJson();
+            celulaMembroEnvelopeJson.setCelulaId(celula.getId());
+            celulaMembroEnvelopeJson.setCelulaMembroId(celulamembro.getId());
+            celulaMembroEnvelopeJson.setNome(celulamembro.getMembroId().getNome());
+            celulaMembroEnvelopeJson.setEhLider(celulamembro.getEhlider());
+            celulaMembroEnvelopeJson.setEhLiderEmTreinamento(celulamembro.getEhLiderEmTreinamento());
+            celulaMembros.add(celulamembro);
+        }     
+        
+        return Response.ok(celulaMembros).build();
     }
 }

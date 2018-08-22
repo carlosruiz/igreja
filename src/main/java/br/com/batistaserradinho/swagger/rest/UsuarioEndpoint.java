@@ -115,11 +115,11 @@ public class UsuarioEndpoint {
             
             if(cadastro.getCelulaId() > 0){
                 Celula celula = new Celula();
-                CelulaMembro celulaMembro = new CelulaMembro();
                 celula.setId(cadastro.getCelulaId());
                 celula = (Celula) crudService.obter(celula);
                 
                 if(celula != null){
+                    CelulaMembro celulaMembro = new CelulaMembro();
                     celulaMembro.setCelulaId(celula);
                     celulaMembro.setSituacaoId(situacao);
                     Collection celulaMembros = new HashSet();
