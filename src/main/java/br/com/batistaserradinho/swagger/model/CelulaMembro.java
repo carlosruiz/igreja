@@ -5,6 +5,7 @@
  */
 package br.com.batistaserradinho.swagger.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
@@ -47,9 +48,11 @@ public class CelulaMembro implements Serializable {
     @Column(name = "ehLiderEmTreinamento")
     private Boolean ehLiderEmTreinamento;
     @OneToMany(mappedBy = "membrocelulaId")
+    @JsonIgnore
     private Collection<PrestacaoDeConta> prestacaoDeContaCollection;
     @JoinColumn(name = "celula_id", referencedColumnName = "id")
     @ManyToOne
+    @JsonIgnore
     private Celula celulaId;
     @JoinColumn(name = "membro_id", referencedColumnName = "id")
     @ManyToOne

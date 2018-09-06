@@ -113,22 +113,8 @@ public class UsuarioEndpoint {
             if(usuario != null)
                  return Response.status(Status.CONFLICT).entity("Usuario "+cadastro.getLogin()+" já existe!").type(MediaType.TEXT_PLAIN_TYPE).build();
             
-            if(cadastro.getCelulaId() > 0){
-                Celula celula = new Celula();
-                celula.setId(cadastro.getCelulaId());
-                celula = (Celula) crudService.obter(celula);
-                
-                if(celula != null){
-                    CelulaMembro celulaMembro = new CelulaMembro();
-                    celulaMembro.setCelulaId(celula);
-                    celulaMembro.setSituacaoId(situacao);
-                    Collection celulaMembros = new HashSet();
-                    celulaMembros.add(celulaMembro);
-                    membro.setCelulaMembroCollection(celulaMembros);                    
-                }          
-            }              
-            membro = (Membro) crudService.salvar(membro);
-            
+            membro = (Membro) crudService.salvar(membro);             
+         
             return Response.status(Status.CREATED).entity(membro)
                     .location(getLocation(membro.getUsuarioCollection().iterator().next()))
                     .links(getUserLinks(membro.getUsuarioCollection().iterator().next())).build();

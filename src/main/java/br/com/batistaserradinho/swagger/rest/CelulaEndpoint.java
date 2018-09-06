@@ -6,6 +6,7 @@
 package br.com.batistaserradinho.swagger.rest;
 
 import br.com.batistaserradinho.EnvelopeJson.CelulaMembroEnvelopeJson;
+import br.com.batistaserradinho.business.ControleDeAcessoBusiness;
 import br.com.batistaserradinho.swagger.model.Celula;
 import br.com.batistaserradinho.swagger.model.CelulaMembro;
 import br.com.batistaserradinho.swagger.service.CrudService;
@@ -16,6 +17,7 @@ import com.wordnik.swagger.annotations.ApiResponse;
 import com.wordnik.swagger.annotations.ApiResponses;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ws.rs.GET;
@@ -33,6 +35,7 @@ import javax.ws.rs.core.Response;
 @Path("/celulas")
 public class CelulaEndpoint {
     private final CrudService crudService = new CrudService();
+    ControleDeAcessoBusiness controleDeAcesso = new ControleDeAcessoBusiness();
     
      /**
      * Retorna lista completa
@@ -69,6 +72,8 @@ public class CelulaEndpoint {
      /**
      * Retorna por id informado
      * @param celulaId
+     * @param token
+     * @return 
     */
     @GET
     @Path("/{celulaId}/membros")
@@ -76,8 +81,15 @@ public class CelulaEndpoint {
     @ApiOperation(value = "Retorna as pessoas da Celula pesquisada", notes = "Retorna todas as pessoas (membro, freuqnetador assiduo e visitantes) da Celula", response = CelulaMembroEnvelopeJson.class)
     @ApiResponses(value = {@ApiResponse(code = 200, message = "Consulta Realizada com sucesso", response = CelulaMembroEnvelopeJson.class)
                           , @ApiResponse(code = 500, message = "Erro interno no servidor")})
-    public Response getMembrosCelula(@ApiParam(name = "celulaId", value = "Numero da Celula", required = true) 
-                                 @PathParam("celulaId") int celulaId) throws NoSuchMethodException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchFieldException {            
+    public Response getMembrosCelula(@ApiParam(name = "celulaId", value = "Numero da Celula", required = true) @PathParam("celulaId") int celulaId, 
+                                     @ApiParam(name = "token", value = "Token", required = true) @PathParam("token") String token) 
+            throws NoSuchMethodException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchFieldException, ParseException, Exception {            
+    
+        String descricaoDeAcesso = controleDeAcesso.obterNomeDaClasse();
+        Response.ResponseBuilder controle = controleDeAcesso.controlarAcesso(token, descricaoDeAcesso);
+        if(controle != null)
+            return controle.build();
+                
         Celula celula = new Celula();
         celula.setId(celulaId);
         celula = (Celula) crudService.obter(celula);
@@ -88,8 +100,10 @@ public class CelulaEndpoint {
             celulaMembroEnvelopeJson.setCelulaId(celula.getId());
             celulaMembroEnvelopeJson.setCelulaMembroId(celulamembro.getId());
             celulaMembroEnvelopeJson.setNome(celulamembro.getMembroId().getNome());
-            celulaMembroEnvelopeJson.setEhLider(celulamembro.getEhlider());
-            celulaMembroEnvelopeJson.setEhLiderEmTreinamento(celulamembro.getEhLiderEmTreinamento());
+            if(celulamembro.getEhlider()!= null)
+                celulaMembroEnvelopeJson.setEhLider(celulamembro.getEhlider());
+            if(celulamembro.getEhLiderEmTreinamento()!= null)
+                celulaMembroEnvelopeJson.setEhLiderEmTreinamento(celulamembro.getEhLiderEmTreinamento());
             celulaMembros.add(celulamembro);
         }     
         
