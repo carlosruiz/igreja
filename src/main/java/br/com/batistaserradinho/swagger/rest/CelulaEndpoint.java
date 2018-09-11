@@ -76,9 +76,9 @@ public class CelulaEndpoint {
      * @return 
     */
     @GET
-    @Path("/{celulaId}/membros")
+    @Path("/{celulaId}/membros{token}")
     @Produces(MediaType.APPLICATION_JSON)
-    @ApiOperation(value = "Retorna as pessoas da Celula pesquisada", notes = "Retorna todas as pessoas (membro, freuqnetador assiduo e visitantes) da Celula", response = CelulaMembroEnvelopeJson.class)
+    @ApiOperation(value = "Retorna as pessoas da Celula pesquisada", notes = "Retorna todas as pessoas (membro, frequentador assiduo e visitantes) da Celula", response = CelulaMembroEnvelopeJson.class)
     @ApiResponses(value = {@ApiResponse(code = 200, message = "Consulta Realizada com sucesso", response = CelulaMembroEnvelopeJson.class)
                           , @ApiResponse(code = 500, message = "Erro interno no servidor")})
     public Response getMembrosCelula(@ApiParam(name = "celulaId", value = "Numero da Celula", required = true) @PathParam("celulaId") int celulaId, 

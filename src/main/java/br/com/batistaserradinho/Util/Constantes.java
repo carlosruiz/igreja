@@ -11,4 +11,5 @@ package br.com.batistaserradinho.Util;
  */
 public class Constantes {
     public final static int PRAZO_DE_EXPIRACAO_DO_TOKEN_EM_MILISEGUNDOS = 15 * 60 * 1000; 
+    public final static int SITUACAO_ATIVA = 1;
 }
