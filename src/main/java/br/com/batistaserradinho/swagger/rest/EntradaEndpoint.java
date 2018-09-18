@@ -103,6 +103,7 @@ public class EntradaEndpoint {
     }
     
     @POST
+    @Path("/receita/{token}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @ApiOperation(value = "Nova Receita", notes = "Cria e registra nova receita de uma Entrada", response = String.class)
