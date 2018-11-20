@@ -5,11 +5,14 @@
  */
 package br.com.batistaserradinho.swagger.rest;
 
+import br.com.batistaserradinho.EnvelopeJson.EntradaEnvelopeJson;
+import br.com.batistaserradinho.EnvelopeJson.ReceitaEnvelopeJson.ReceitaEnvelope;
 import br.com.batistaserradinho.Util.Constantes;
 import br.com.batistaserradinho.business.ControleDeAcessoBusiness;
 import br.com.batistaserradinho.swagger.model.Entrada;
 import br.com.batistaserradinho.swagger.model.Receita;
-import br.com.batistaserradinho.swagger.model.Situacao;
+import static br.com.batistaserradinho.swagger.rest.EntradaMapper.retornarEntrada;
+import static br.com.batistaserradinho.swagger.rest.EntradaMapper.retornarReceita;
 import br.com.batistaserradinho.swagger.service.CrudService;
 import com.wordnik.swagger.annotations.Api;
 import com.wordnik.swagger.annotations.ApiOperation;
@@ -48,7 +51,7 @@ public class EntradaEndpoint {
      * @param token
      */
     @GET
-    @Path("/{entradaId}")
+    @Path("/{entradaId}/{token}")
     @Produces(MediaType.APPLICATION_JSON)
     @ApiOperation(value = "Retorna a entrada pelo Codigo", notes = "Retorna a entrada das receitas pelo codigo", response = Entrada.class)
     @ApiResponses(value = {
@@ -77,21 +80,15 @@ public class EntradaEndpoint {
         , @ApiResponse(code = 406, message = "Definição de entrada mal formada")
         , @ApiResponse(code = 409, message = "já existe a entrada informada")
         , @ApiResponse(code = 500, message = "Erro interno no servidor")})
-    public Response createEntrada(@ApiParam(name = "entrada", required = true) Entrada entrada,
-            @ApiParam(name = "token", value = "Token", required = true) @PathParam("token") String token) throws Exception {
+    public Response createEntrada(@ApiParam(name = "entrada", required = true) EntradaEnvelopeJson entradaEnvelopeJson) throws Exception {
         try {
             String descricaoDeAcesso = controleDeAcesso.obterNomeDaClasse();
-            Response.ResponseBuilder controle = controleDeAcesso.controlarAcesso(token, descricaoDeAcesso);
+            Response.ResponseBuilder controle = controleDeAcesso.controlarAcesso(entradaEnvelopeJson.getToken(), descricaoDeAcesso);
             if (controle != null) {
                 return controle.build();
-            }
+            }           
 
-            if (entrada.getSituacaoId() == null) {
-                Situacao situacao = new Situacao();
-                situacao.setId(1); //Ativo
-                entrada.setSituacaoId(situacao);
-            }
-
+            Entrada entrada = retornarEntrada(entradaEnvelopeJson, crudService);
             entrada = (Entrada) crudService.salvar(entrada);
 
             return Response.status(Response.Status.CREATED).entity("Entrada Criada com sucesso!")
@@ -103,7 +100,7 @@ public class EntradaEndpoint {
     }
     
     @POST
-    @Path("/receita/{token}")
+    @Path("/receita/")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @ApiOperation(value = "Nova Receita", notes = "Cria e registra nova receita de uma Entrada", response = String.class)
@@ -112,18 +109,17 @@ public class EntradaEndpoint {
         , @ApiResponse(code = 406, message = "Definição de entrada mal formada")
         , @ApiResponse(code = 409, message = "já existe a entrada informada")
         , @ApiResponse(code = 500, message = "Erro interno no servidor")})
-    public Response createReceita(@ApiParam(name = "receita", required = true) Receita receita,
-            @ApiParam(name = "token", value = "Token", required = true) @PathParam("token") String token) throws Exception {
+    public Response createReceita(@ApiParam(name = "receita", required = true) ReceitaEnvelope receitaEnvelope) throws Exception {
         try {
             String descricaoDeAcesso = controleDeAcesso.obterNomeDaClasse();
-            Response.ResponseBuilder controle = controleDeAcesso.controlarAcesso(token, descricaoDeAcesso);
+            Response.ResponseBuilder controle = controleDeAcesso.controlarAcesso(receitaEnvelope.getToken(), descricaoDeAcesso);
             if (controle != null) {
                 return controle.build();
             }
 
-            Entrada entrada = (Entrada) crudService.obter(receita.getEntradaId());
+            Receita receita = retornarReceita(receitaEnvelope, crudService);
             
-            if(!entrada.getSituacaoId().equals(Constantes.SITUACAO_ATIVA))
+            if(!receita.getEntradaId().getSituacaoId().equals(Constantes.SITUACAO_ATIVA))
                 return Response.status(Response.Status.NOT_ACCEPTABLE).entity("Não é permitido inclusão de novas receitas.").build();
             
             receita = (Receita) crudService.salvar(receita);
